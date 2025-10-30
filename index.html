@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRASH THE RNG</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- 상태 표시 영역 -->
+        <div id="status-bar">
+            <div>층: <span id="current-floor">1</span>/<span id="total-floors">10</span></div>
+            <div>체력: <span id="player-hp">5</span>/<span id="player-max-hp">10</span></div>
+            <div>골드: <span id="player-gold">15</span>G</div>
+        </div>
+
+        <!-- 전투 화면 -->
+        <div id="battle-view" class="game-view">
+            <div id="enemy-info">
+                <img id="enemy-image" src="" alt="몬스터">
+                <div>몬스터 체력: <span id="enemy-hp">0</span></div>
+            </div>
+            <button id="attack-button">공격하기</button>
+        </div>
+
+        <!-- 상점 화면 -->
+        <div id="shop-view" class="game-view">
+            <h2>상점</h2>
+            <div id="shop-items"></div>
+            <button id="skip-shop">다음 층으로</button>
+        </div>
+
+        <!-- 인벤토리 -->
+        <div id="inventory">
+            <h3>인벤토리</h3>
+            <div id="inventory-items"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript 파일들 -->
+    <script src="js/gameState.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/battle.js"></script>
+    <script src="js/shop.js"></script>
+    <script src="js/floor.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,54 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRASH THE RNG</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div id="game-container">
-        <!-- 상태 표시 영역 -->
-        <div id="status-bar">
-            <div>층: <span id="current-floor">1</span>/<span id="total-floors">10</span></div>
-            <div>체력: <span id="player-hp">5</span>/<span id="player-max-hp">10</span></div>
-            <div>골드: <span id="player-gold">15</span>G</div>
-        </div>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>CRASH THE RNG — UI Preview</title>
+        <style>
+            :root{
+                --bg:#6f7c89; --panel:#4a4a4a; --fg:#ffffff;
+            }
+            html,body{height:100%;margin:0;font-family:AppleSDGothicNeo,Segoe UI,system-ui,"Noto Sans KR",sans-serif}
+            body{background:var(--bg);color:var(--fg)}
+            #game-container{position:relative;width:100%;height:100vh;overflow:hidden}
 
-        <!-- 시작 선택지: 층 오르기 또는 상점 방문 -->
-        <div id="start-view" class="game-view">
-            <button id="climb-floor">층 오르기</button>
-            <button id="visit-shop">상점 방문</button>
-        </div>
-        <!-- 전투 화면 -->
-        <div id="battle-view" class="game-view">
-            <div id="enemy-info">
-                <img id="enemy-image" src="" alt="몬스터">
+            /* Top status */
+            #status-bar{position:absolute;top:18px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;font-size:18px}
+
+            /* Enemy portrait (center top) */
+            .enemy-portrait{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:420px;height:420px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;color:#000;font-size:28px}
+
+            /* Right side controls */
+            .enemy-top-right{position:absolute;top:48px;right:56px}
+            .right-actions{position:absolute;right:56px;bottom:120px;display:flex;flex-direction:column;gap:28px}
+            .action-btn {
+  width: 260px;
+  height: 110px;
+  border-radius: 60px;
+  background: var(--panel);
+  border: none;
+  color: var(--fg);
+  font-size: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.action-btn:hover {
+  background: #5a5a5a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.action-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+            /* Left column: inventory & player */
+            #inventory{position:absolute;left:56px;top:220px;width:360px}
+            .inventory-box{width:360px;height:140px;border-radius:80px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:28px}
+            #left-panel{position:absolute;left:56px;bottom:56px;display:flex;flex-direction:column;gap:18px}
+            .small-box{width:220px;height:72px;border-radius:40px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:20px}
+
+            /* Enemy HP text under portrait */
+            .enemy-info-text{position:absolute;left:50%;top:520px;transform:translateX(-50%);text-align:center}
+            .enemy-info-text div{margin:6px 0}
+
+            /* small utilities */
+            .muted{opacity:0.9;color:var(--fg)}
+
+            /* 인벤토리 버튼용 넓은 버튼 스타일 */
+.wide-btn {
+  width: 360px;
+}
+        </style>
+    </head>
+    <body>
+        <div id="game-container">
+            <!-- Top status -->
+            <div id="status-bar">
+                <div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
+                <div>체력: <strong id="player-hp">5</strong>/<span id="player-max-hp">10</span></div>
+                <div>골드: <strong id="player-gold">15</strong>G</div>
+            </div>
+
+            <!-- 적 일러스트 -->
+            <div class="enemy-portrait">적 일러스트</div>
+
+            <!-- 적 스탯 -->
+            <div class="enemy-top-right"><button class="small-box">적 스탯</button></div>
+
+            <!-- Right vertical actions -->
+            <div class="right-actions">
+                <button class="action-btn" id="attack-button">DICE!</button>
+            </div>
+
+            <!-- Enemy info text -->
+            <div class="enemy-info-text muted">
+                <div id="enemy-name">몬스터</div>
                 <div>몬스터 체력: <span id="enemy-hp">0</span></div>
             </div>
-            <button id="attack-button">공격하기</button>
-        </div>
 
-        <!-- 상점 화면 -->
-        <div id="shop-view" class="game-view">
-            <h2>상점</h2>
-            <div id="shop-items"></div>
-            <button id="skip-shop">다음 층으로</button>
-        </div>
+            <!-- Left inventory panel (now a button) -->
+            <div id="inventory">
+                <button class="action-btn wide-btn" id="inventory-button">인벤토리</button>
+            </div>
 
-        <!-- 인벤토리 -->
-        <div id="inventory">
-            <h3>인벤토리</h3>
-            <div id="inventory-items"></div>
+            <!-- Bottom-left player/buffs -->
+            <div id="left-panel">
+                <div class="small-box">플레이어 스탯</div>
+            </div>
         </div>
-    </div>
-
-    <!-- JavaScript 파일들 -->
-    <script src="js/gameState.js"></script>
-    <script src="js/inventory.js"></script>
-    <script src="js/battle.js"></script>
-    <script src="js/shop.js"></script>
-    <script src="js/floor.js"></script>
-    <script src="js/main.js"></script>
-</body>
+    </body>
 </html>

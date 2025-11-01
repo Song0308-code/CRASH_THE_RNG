@@ -10,7 +10,7 @@
             }
             html,body{height:100%;margin:0;font-family:AppleSDGothicNeo,Segoe UI,system-ui,"Noto Sans KR",sans-serif}
             body{background:var(--bg);color:var(--fg)}
-            #game-container{position:relative;width:100%;height:100vh;overflow:hidden}
+            #game-container{position:relative;width:100%;height:100vh;overflow:hidden;display:none}
 
             /* 스탯 */
             #status-bar{position:absolute;top:18px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;font-size:18px}
@@ -62,9 +62,56 @@
 .wide-btn {
   width: 360px;
 }
+            /* 시작 화면 스타일 */
+            .start-screen{
+                position:fixed;
+                inset:0;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.35));
+                z-index:900;
+            }
+
+            .start-content{
+                width:720px;
+                max-width:90%;
+                text-align:center;
+                display:flex;
+                flex-direction:column;
+                gap:20px;
+                align-items:center;
+            }
+
+            .start-art {
+                  width: 100%;
+                  height: 500px;
+                  border-radius: 18px;
+                  background-image: url('alice.png');
+                  background-size: cover;         
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  
+            }
+
+            .start-text{
+                color:var(--fg);
+                opacity:0.9;
+                min-height:48px;
+            }
+
         </style>
     </head>
     <body>
+        <!-- 게임 시작 UI -->
+        <div id="start-screen" class="start-screen">
+            <div class="start-content">
+                <div class="start-art"></div>
+                <div class="start-text">Crash The RNG</div>
+                <button id="start-game-button" class="action-btn" style="width:320px;height:72px;font-size:20px">게임 시작</button>
+            </div>
+        </div>
+
         <div id="game-container">
             <!-- Top status -->
             <div id="status-bar">
@@ -101,7 +148,7 @@
                 <button class="small-box" id="test-shop-button">상점 테스트</button>
             </div>
         </div>
-        <!-- JavaScript files -->
+        <!-- 자바 스크립트 소스 -->
         <script src="js/gameState.js"></script>
         <script src="js/inventory.js"></script>
         <script src="js/shop.js"></script>

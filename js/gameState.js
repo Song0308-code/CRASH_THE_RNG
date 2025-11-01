@@ -1,9 +1,23 @@
 // 게임 상태 관리
 const gameState = {
-    player: {
+    player: { // 플레이어 스탯
         hp: 10,
         maxHp: 10,
-        gold: 15
+        gold: 150,
+        Max_dice: 6,
+        Min_dice: 1,
+        items: {
+            "체력 물약": 0,
+            "더블 주사위": 0,
+            "레벨 업 주사위": 0
+        }
+    },
+    enemy :{  // 적 스탯
+        hp: 20,
+        maxHp: 20,
+        attack: 5,
+        Max_dice: 6,
+        Min_dice: 1
     }
 };
 

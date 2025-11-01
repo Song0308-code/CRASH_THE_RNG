@@ -22,9 +22,12 @@ const shopSystem = {
         const shopWindow = document.createElement('div');
         shopWindow.className = 'shop-window';
         
-        // 상점 내용
+        // 상점 내용 
         shopWindow.innerHTML = `
             <h1 class="shop-title">상점</h1>
+            <div class="shop-header">
+                <div id="shop-gold">소지금: ${gameState.player.gold}G</div>
+            </div>
             <div class="shop-items">
                 ${this.items.map(item => this.createItemCard(item)).join('')}
             </div>
@@ -52,7 +55,7 @@ const shopSystem = {
     },
 
     showShop() {
-        // 게임 컨테이너 숨기기
+        
         const gameContainer = document.getElementById('game-container');
         if (gameContainer) {
             gameContainer.style.display = 'none';
@@ -62,14 +65,14 @@ const shopSystem = {
         const existingShop = document.querySelector('.shop-overlay');
         if (existingShop) existingShop.remove();
 
-        // 새 상점 생성 및 추가
+        // 상점 생성
         const shopElement = this.createShopElement();
         document.body.appendChild(shopElement);
 
         // 상점 표시
         shopElement.style.display = 'flex';
 
-        // 나가기 버튼 이벤트 연결
+        // 나가기 버튼
         const exitBtn = shopElement.querySelector('#exit-shop');
         exitBtn.onclick = () => {
             this.hideShop();

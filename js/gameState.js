@@ -13,8 +13,8 @@ const gameState = {
         }
     },
     enemy :{  // 적 스탯
-        hp: 20,
-        maxHp: 20,
+        hp: 1,
+        maxHp: 1,
         attack: 5,
         Max_dice: 6,
         Min_dice: 1

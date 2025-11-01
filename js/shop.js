@@ -31,7 +31,7 @@ const shopSystem = {
             <div class="shop-items">
                 ${this.items.map(item => this.createItemCard(item)).join('')}
             </div>
-            <button id="exit-shop" class="shop-btn">다음 층으로</button>
+            <button id="exit-shop" class="shop-btn">상점 나가기</button>
         `;
 
         overlay.appendChild(shopWindow);
@@ -76,9 +76,9 @@ const shopSystem = {
         const exitBtn = shopElement.querySelector('#exit-shop');
         exitBtn.onclick = () => {
             this.hideShop();
-            // 다음 층으로 진행 (floor.js의 함수 호출)
-            if (typeof floorSystem !== 'undefined') {
-                floorSystem.advanceFloor();
+            // 다음 층으로 진행 (floorSystem.nextFloor exists in floor.js)
+            if (typeof floorSystem !== 'undefined' && typeof floorSystem.nextFloor === 'function') {
+                floorSystem.nextFloor();
             }
         };
     },

@@ -82,12 +82,12 @@ const inventorySystem = {
         // 인벤토리 버튼 위치를 계산해 body에 절대 위치로 추가
         const inventoryBtn = document.getElementById('inventory-button');
         const margin = 10;
-        const popupWidth = 320; // should match CSS
+        const popupWidth = 320; 
 
         if (inventoryBtn) {
             const rect = inventoryBtn.getBoundingClientRect();
 
-            // Temporarily append invisibly to measure height
+            
             inventoryElement.style.position = 'absolute';
             inventoryElement.style.visibility = 'hidden';
             inventoryElement.style.left = '0px';
@@ -96,53 +96,53 @@ const inventorySystem = {
 
             let popupHeight = inventoryElement.offsetHeight;
 
-            // calculate left: prefer to show to the right of the button, fall back to left side
-            const preferredRight = rect.right + 10; // place to the right of button
-            const preferredLeft = rect.left - popupWidth - 10; // place to the left of button
+           
+            const preferredRight = rect.right + 10; 
+            const preferredLeft = rect.left - popupWidth - 10; 
             let left = preferredRight;
 
-            // if placing to the right would overflow, try left side
+            
             if (left + popupWidth > window.innerWidth - margin) {
                 left = preferredLeft;
             }
 
-            // if left also overflows or is too small, clamp to viewport margins
+           
             if (left + popupWidth > window.innerWidth - margin) {
                 left = Math.max(margin, window.innerWidth - popupWidth - margin);
             }
             if (left < margin) left = margin;
 
-            // decide to show below or above depending on space
+           
             const spaceBelow = window.innerHeight - rect.bottom - margin;
             const spaceAbove = rect.top - margin;
             let top;
 
-            // If popup is taller than available space, shrink popup and enable internal scroll
+            
             const maxAvailable = Math.max(spaceBelow, spaceAbove);
             if (popupHeight > maxAvailable) {
-                const maxPopup = Math.max(100, maxAvailable); // at least 100px
+                const maxPopup = Math.max(100, maxAvailable); 
                 inventoryElement.style.maxHeight = `${maxPopup}px`;
                 inventoryElement.style.overflowY = 'auto';
-                // also shrink items area if present
+                
                 const itemsDiv = inventoryElement.querySelector('.inventory-items');
                 if (itemsDiv) {
-                    // leave room for header (approx 60px)
+                    
                     itemsDiv.style.maxHeight = `${Math.max(40, maxPopup - 80)}px`;
                     itemsDiv.style.overflowY = 'auto';
                 }
-                // re-measure
+                
                 popupHeight = inventoryElement.offsetHeight;
             }
 
             if (spaceBelow < popupHeight && spaceAbove > spaceBelow) {
-                // show above the button
+               
                 top = rect.top - popupHeight - 10 + window.scrollY;
             } else {
-                // show below the button
+                
                 top = rect.bottom + 10 + window.scrollY;
             }
 
-            // clamp top within viewport
+            
             const maxTop = window.innerHeight - popupHeight - margin + window.scrollY;
             const minTop = margin + window.scrollY;
             if (top > maxTop) top = maxTop;
@@ -151,10 +151,10 @@ const inventorySystem = {
             inventoryElement.style.left = `${left + window.scrollX}px`;
             inventoryElement.style.top = `${top}px`;
             inventoryElement.style.visibility = 'visible';
-            // ensure on top
+           
             inventoryElement.style.zIndex = 2000;
         } else {
-            // fallback: append to body centered
+            
             inventoryElement.style.position = 'absolute';
             inventoryElement.style.left = `${(window.innerWidth - popupWidth)/2}px`;
             inventoryElement.style.top = `${100 + window.scrollY}px`;

@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (gameContainer) gameContainer.style.display = 'block';
 
             // UI 초기화
-            if (typeof updateUI === 'function') updateUI();
+                updateUI();
+                // 첫 전투 시작
+                battleSystem.startNewBattle();
         });
     }
 });

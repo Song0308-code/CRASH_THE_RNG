@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>CRASH THE RNG — UI Preview</title>
+        <title>CRASH THE RNG</title>
         <style>
             :root{
-                --bg:#6f7c89; --panel:#4a4a4a; --fg:#ffffff;
+                --bg:skyblue; --panel:black; --fg:white;
             }
             html,body{height:100%;margin:0;font-family:system-ui,"Noto Sans KR",sans-serif}
             body{background:var(--bg);color:var(--fg)}
@@ -16,34 +16,33 @@
             #status-bar{position:absolute;top:18px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;font-size:18px}
 
             /* 적일러스트 */
-            .enemy-portrait{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:420px;height:420px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;color:#000;font-size:28px}
+            .enemy-img{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:420px;height:420px;border-radius:10px;background:var(--panel);display:flex;align-items:center;justify-content:center;color:#000;font-size:28px}
 
             /* 적스탯 */
-            .enemy-top-right{position:absolute;top:48px;right:56px}
-            .right-actions{position:absolute;right:56px;bottom:120px;display:flex;flex-direction:column;gap:28px}
+            .right-pos{position:absolute;right:56px;bottom:120px;display:flex;flex-direction:column;gap:28px}
             .action-btn {
-  width: 260px;
-  height: 110px;
-  border-radius: 60px;
-  background: var(--panel);
-  border: none;
-  color: var(--fg);
-  font-size: 28px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  user-select: none;
-}
+                width: 260px;
+                height: 110px;
+                border-radius: 60px;
+                background: var(--panel);
+                border: none;
+                color: var(--fg);
+                font-size: 28px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                user-select: none;
+            }
 
-.action-btn:hover {
-  background: #5a5a5a;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
+            .action-btn:hover {
+                background: #5a5a5a;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
 
-.action-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
+            .action-btn:active {
+                transform: translateY(1px);
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            }
 
             /* UI 구성 */
             #inventory{position:absolute;left:56px;top:220px;width:360px}
@@ -55,13 +54,10 @@
             .enemy-info-text{position:absolute;left:50%;top:520px;transform:translateX(-50%);text-align:center}
             .enemy-info-text div{margin:6px 0}
 
-            /* small utilities */
-            .muted{opacity:0.9;color:var(--fg)}
-
             /* 인벤토리 버튼용 넓은 버튼 스타일 */
-.wide-btn {
-  width: 360px;
-}
+            .wide-btn {
+                width: 360px;
+            }
             /* 시작 화면 스타일 */
             .start-screen{
                 position:fixed;
@@ -121,25 +117,22 @@
             </div>
 
             <!-- 적 일러스트 -->
-            <div class="enemy-portrait">적 일러스트</div>
-
-            <!-- 적 스탯 -->
-            <div class="enemy-top-right"><button class="small-box">적 스탯</button></div>
+            <div class="enemy-img">적 일러스트</div>
 
             <!-- DICE 버튼 -->
-            <div class="right-actions">
+            <div class="right-pos">
                 <button class="action-btn" id="attack-button">DICE!</button>
             </div>
 
             <!-- 적 -->
-            <div class="enemy-info-text muted">
+            <div class="enemy-info-text">
                 <div id="enemy-name">몬스터</div>
                 <div>몬스터 체력: <span id="enemy-hp">0</span></div>
             </div>
 
             <!-- 인벤토리 버튼 -->
             <div id="inventory">
-                <button class="action-btn wide-btn" id="inventory-button">인벤토리</button>
+                <button class="action-btn" id="inventory-button">인벤토리</button>
             </div>
 
             <!-- PC 스탯 -->

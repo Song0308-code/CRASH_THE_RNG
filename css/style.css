@@ -176,13 +176,13 @@ button:disabled {
     position: absolute;
     /* top/left is set dynamically in JS */
     width: 320px;  /* 더 좁게 조정 */
-    max-height: 80vh; /* never exceed viewport height */
+    max-height: 80vh; /* 다른 ui안가리게하기용 */
     background: var(--panel);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 0 0 2px rgba(255,255,255,0.1);
-    z-index: 2000; /* higher so it sits above other UI */
+    z-index: 2000; 
     backdrop-filter: blur(8px);
-    overflow: hidden; /* internal scrolling applied to .inventory-items or popup via JS when needed */
+    overflow: hidden; 
 }
 
 .inventory-content {

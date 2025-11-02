@@ -21,10 +21,10 @@ const battleSystem = {
     },
 
     rollDice() {
-        // 플레이어의 주사위
+        // 플레이어 주사위
         const playerRoll = rollDice(gameState.player.Min_dice, gameState.player.Max_dice);
         
-        // 적의 주사위
+        // 적 주사위
         const enemyRoll = rollDice(gameState.enemy.Min_dice, gameState.enemy.Max_dice);
         
         // 결과 표시

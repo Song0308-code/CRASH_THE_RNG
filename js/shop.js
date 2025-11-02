@@ -76,11 +76,10 @@ const shopSystem = {
         const exitBtn = shopElement.querySelector('#exit-shop');
         exitBtn.onclick = () => {
             this.hideShop();
-            // 다음 층으로 진행 (floorSystem.nextFloor exists in floor.js)
-            if (typeof floorSystem !== 'undefined' && typeof floorSystem.nextFloor === 'function') {
-                floorSystem.nextFloor();
-            }
+            updateUI();
+            battleSystem.startNewBattle();
         };
+        
     },
 
     hideShop() {

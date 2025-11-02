@@ -14,7 +14,7 @@ const gameState = {
     },
     enemy :{  // 적 스탯
         hp: 1,
-        maxHp: 1,
+        maxHp: 1, //일단 층 잘 넘어가는지 확인할라고 1로 설정해둠
         attack: 5,
         Max_dice: 6,
         Min_dice: 1

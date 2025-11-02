@@ -6,15 +6,17 @@ const floorSystem = {
     // 다음 층으로 이동
     nextFloor() {
         if (this.currentFloor < this.maxFloor) {
+             
             this.currentFloor++;
-            gameState.enemy.hp = gameState.enemy.maxHp; // 적 체력 회복
+            gameState.enemy.hp = gameState.enemy.maxHp; // 이부분을 고쳐서 적 밸런스 맞춰야함 몬스터 ui도 if문으로 걸어서 초기화 하면 될듯?
             document.getElementById('current-floor').textContent = this.currentFloor;
             
-            // 층 클리어 보상
+            // 일단은 층에서 이기면 10골드 획득
             gameState.player.gold += 10;
             updateUI();
 
             // 다음 행동 선택 창 표시
+
             this.showNextActionChoice();
         } else {
             alert('축하합니다! 모든 층을 클리어하셨습니다!');
@@ -43,7 +45,7 @@ const floorSystem = {
         `;
 
         const title = document.createElement('h2');
-        title.textContent = `${this.currentFloor}층에 도착했습니다!`;
+        title.textContent = `${this.currentFloor}층에 도착하였습니다!`; //방금 여기부분 건드렸음
         title.style.marginBottom = '20px';
 
         const battleButton = document.createElement('button');

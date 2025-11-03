@@ -3,7 +3,7 @@ const gameState = {
     player: { // 플레이어 스탯
         hp: 10,
         maxHp: 10,
-        gold: 150,
+        gold: 150, //아이템 잘 사지나 컴파일용으로 돈많이 설정해둠
         Max_dice: 6,
         Min_dice: 1,
         items: {

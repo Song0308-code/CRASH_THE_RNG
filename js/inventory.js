@@ -69,7 +69,7 @@ const inventorySystem = {
     },
 
     showInventory() {
-        // 토글: 이미 열려있다면 닫기
+        // 이미 열려있다면 닫기
         const existingInventory = document.querySelector('.inventory-popup');
         if (existingInventory) {
             existingInventory.remove();
@@ -188,8 +188,9 @@ const inventorySystem = {
         if (typeof updateUI === 'function') updateUI();
     },
 
-    applyItemEffect(item) {
+    applyItemEffect(item) {  //근데 문제는 체력회복아이템만 효과 적용됨 아래 두개 아이템은 고쳐야함.
         switch(item.effect) {
+            //체력회복
             case 'heal':
                 gameState.player.hp = Math.min(
                     gameState.player.hp + item.value,
@@ -198,7 +199,7 @@ const inventorySystem = {
                 break;
 
             case 'dice_buff':
-                // 다음 주사위 굴림에 보너스 추가
+                // 다음주사위 보너스
                 if (!gameState.player.tempBuffs) gameState.player.tempBuffs = [];
                 gameState.player.tempBuffs.push({
                     type: 'dice',
@@ -208,7 +209,7 @@ const inventorySystem = {
                 break;
 
             case 'dice_permanent':
-                // 주사위 최대값 영구 증가
+                // 주사위플러스
                 if (!gameState.player.permanentBuffs) gameState.player.permanentBuffs = [];
                 gameState.player.permanentBuffs.push({
                     type: 'dice_max',

@@ -94,6 +94,15 @@
                 color:var(--fg);
                 min-height:48px;
             }
+            #enemy-name{   /* 나중에 적 여러개 만들때 편하게 바꿀라고 만들어둠*/
+                font-size:24px;
+                font-weight:bold;
+            }
+            #enemy-image { /* 나중에 적 사진 바꾸기 편하게 넣어둠 */
+                width: 200px;
+                height: 200px;
+                object-fit: contain;
+            }
 
         </style>
     </head>
@@ -115,8 +124,8 @@
                 <div>골드: <strong id="player-gold">15</strong>G</div>
             </div>
 
-            <!-- 적 일러스트 -->
-            <div class="enemy-img">적 일러스트</div>
+            <!-- 적 일러스트 -> 다른 스타일 시트에서 img만 넣으면 됨-->
+            <div class="enemy-img" id="enemy-image"></div>
 
             <!-- DICE 버튼 -->
             <div class="right-pos">

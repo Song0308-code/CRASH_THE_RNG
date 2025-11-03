@@ -132,15 +132,6 @@
     text-align: center;
 }
 
-#enemy-info {
-    margin-bottom: 20px;
-}
-
-#enemy-image {
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
-}
 
 /* 버튼 스타일 */
 button {

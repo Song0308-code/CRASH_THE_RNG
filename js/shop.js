@@ -1,6 +1,6 @@
 const shopSystem = {
     init() {
-        // 테스트 버튼 이벤트 등록
+        // 테스트 버튼
         const testButton = document.getElementById('test-shop-button');
         if (testButton) {
             testButton.addEventListener('click', () => this.showShop());

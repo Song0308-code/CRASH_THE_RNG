@@ -1,104 +1,19 @@
-/* 상점 UI */
-.shop-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+
+/* css 파일 합쳐보려다가 ㅈ망했음 이쪽 파일은 건드리지마세요.*/
+/* 전역 변수 */
+:root {
+    --bg: #4682B4;
+    --panel: #2F4F4F;
+    --fg: #F0F8FF;
+    --accent: #ffd700;
+}
+
+/* 기본 스타일 */
+html, body {
     height: 100%;
-    background: var(--bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.shop-window {
-    background: var(--bg);
-    padding: 40px;
-    width: 100%;
-    height: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.shop-title {
-    color: var(--fg);
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-.shop-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 12px;
-}
-
-#shop-gold {
-    color: #ffd700;
-    font-weight: 700;
-    background: rgba(255,255,255,0.04);
-    padding: 8px 12px;
-    border-radius: 8px;
-}
-
-.shop-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.shop-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.item-name {
-    color: var(--fg);
-    margin: 0 0 10px 0;
-    font-size: 20px;
-}
-
-.item-desc {
-    color: var(--fg);
-    opacity: 0.8;
-    margin: 10px 0;
-}
-
-.item-cost {
-    color: #ffd700;
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.shop-btn {
-    background: #4a4a4a;
-    color: var(--fg);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.2s;
-}
-
-.shop-btn:hover:not(.disabled) {
-    background: #5a5a5a;
-}
-
-.shop-btn.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-#exit-shop {
-    display: block;
-    width: 200px;
-    margin: 20px auto 0;
-}
+    margin: 0;
+    font-family: system-ui, "Noto Sans KR", sans-serif;
+/* 상점 관련 스타일은 shop.css로 이동됨 */
 
 /* 전체 게임 컨테이너 스타일 */
 #game-container {
@@ -118,54 +33,12 @@
     border-radius: 5px;
 }
 
-/* 게임 뷰 스타일 */
-.game-view {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* 전투 화면 스타일 */
-#battle-view {
-    text-align: center;
-}
-
-
-/* 버튼 스타일 */
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
-
-/* 상점 아이템 스타일 */
-.shop-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
+/* 이 부분의 스타일들은 더 이상 사용되지 않음 */
 
 /* 인벤토리 팝업 스타일 */
 .inventory-popup {
     position: absolute;
-    /* top/left is set dynamically in JS */
+
     width: 320px;  /* 더 좁게 조정 */
     max-height: 80vh; /* 다른 ui안가리게하기용 */
     background: var(--panel);
@@ -208,10 +81,10 @@ button:disabled {
 }
 
 .inventory-items {
-    max-height: 280px;  /* 더 작게 조정 */
+    max-height: 280px; 
     overflow-y: auto;
-    margin: 0 -16px;  /* 패딩 상쇄 */
-    padding: 0 16px;  /* 스크롤바 공간 확보 */
+    margin: 0 -16px; 
+    padding: 0 16px; 
 }
 
 .inventory-item {
@@ -272,7 +145,7 @@ button:disabled {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    transition: background 0.2s;
+    transition: background-color 0.2s;
     width: 100%;
 }
 
@@ -280,13 +153,262 @@ button:disabled {
     background: #5a5a5a;
 }
 
-/* 승리 화면 스타일 */
-.victory-screen {
-    text-align: center;
-    padding: 50px;
+
 }
 
-.victory-screen h1 {
-    color: #4CAF50;
-    font-size: 32px;
+/* 위치 관련 */
+.right-pos {
+    position: absolute;
+    right: 56px;
+    bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
 }
+
+/* 버튼 스타일 */
+.action-btn {
+    width: 260px;
+    height: 110px;
+    border-radius: 60px;
+    background: var(--panel);
+    border: none;
+    color: var(--fg);
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.action-btn:hover {
+    background: #3D5A5A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px #1a1a1a;
+}
+
+.action-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px #1a1a1a;
+}
+
+/* UI 구성 */
+#inventory {
+    position: absolute;
+    left: 56px;
+    top: 220px;
+    width: 360px;
+}
+
+.inventory-box {
+    width: 360px;
+    height: 140px;
+    border-radius: 80px;
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+#left-panel {
+    position: absolute;
+    left: 56px;
+    bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.small-box {
+    width: 220px;
+    height: 72px;
+    border-radius: 40px;
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+/* 적 정보 */
+.enemy-info-text {
+    position: absolute;
+    left: 50%;
+    top: 380px;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.enemy-info-text div {
+    margin: 6px 0;
+}
+
+#enemy-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#enemy-hp {
+    font-size: 20px;
+}
+
+/* 버튼 변형 */
+.wide-btn {
+    width: 360px;
+}
+
+/* 시작 화면 */
+.start-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    z-index: 900;
+}
+
+.start-content {
+    width: 720px;
+    max-width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.start-art {
+    width: 100%;
+    height: 500px;
+    border-radius: 18px;
+    background-image: url('../assets/alice.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.start-text {
+    color: var(--fg);
+    min-height: 48px;
+}
+
+/* 인벤토리 팝업 스타일 */
+.inventory-popup {
+    position: absolute;
+    /* top/left is set dynamically in JS */
+    width: 320px;  /* 더 좁게 조정 */
+    max-height: 80vh; /* 다른 ui안가리게하기용 */
+    background: var(--panel);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 0 0 2px rgba(255,255,255,0.1);
+    z-index: 2000; 
+    backdrop-filter: blur(8px);
+    overflow: hidden; 
+}
+
+.inventory-content {
+    padding: 16px;
+}
+
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.inventory-title {
+    color: var(--fg);
+    font-size: 20px;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 8px;
+    opacity: 0.8;
+}
+
+.close-btn:hover {
+    opacity: 1;
+}
+
+.inventory-items {
+    max-height: 280px; 
+    overflow-y: auto;
+    margin: 0 -16px; 
+    padding: 0 16px; 
+}
+
+.inventory-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.inventory-item:last-child {
+    margin-bottom: 0;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.item-name {
+    color: var(--fg);
+    font-size: 15px;
+    margin: 0;
+}
+
+.item-count {
+    color: #ffd700;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 6px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+
+.item-desc {
+    color: var(--fg);
+    opacity: 0.7;
+    font-size: 13px;
+    margin: 4px 0 6px;
+    line-height: 1.3;
+}
+
+.empty-inventory {
+    color: var(--fg);
+    opacity: 0.6;
+    text-align: center;
+    padding: 16px;
+    font-size: 14px;
+}
+
+.inventory-btn {
+    background: #4a4a4a;
+    color: var(--fg);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.inventory-btn:hover:not(.close-btn) {
+    background: #5a5a5a;
+}
+
+/* 승리 화면은 현재 사용되지 않음 */

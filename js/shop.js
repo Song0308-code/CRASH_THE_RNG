@@ -3,7 +3,9 @@ const shopSystem = {
         // 테스트 버튼
         const testButton = document.getElementById('test-shop-button');
         if (testButton) {
-            testButton.addEventListener('click', () => this.showShop());
+            testButton.addEventListener('click', function() {
+                shopSystem.showShop();
+            });
         }
     },
 
@@ -13,7 +15,7 @@ const shopSystem = {
         { name: "레벨 업 주사위", cost: 21, effect: "dice_permanent", value: 1, description: "주사위 최대값이 영구적으로 1 증가" }
     ],
 
-    createShopElement() {
+    createShop() {
         // 상점 오버레이 생성
         const overlay = document.createElement('div');
         overlay.className = 'shop-overlay';
@@ -26,7 +28,7 @@ const shopSystem = {
         shopWindow.innerHTML = `
             <h1 class="shop-title">상점</h1>
             <div class="shop-header">
-                <div id="shop-gold">소지금: ${gameState.player.gold}G</div>
+                <div>소지금: ${gameState.player.gold}G</div>
             </div>
             <div class="shop-items">
                 ${this.items.map(item => this.createItemCard(item)).join('')}
@@ -55,7 +57,7 @@ const shopSystem = {
     },
 
     showShop() {
-        
+        //전투 씬이면 전투ui 숨기기
         const gameContainer = document.getElementById('game-container');
         if (gameContainer) {
             gameContainer.style.display = 'none';
@@ -66,7 +68,7 @@ const shopSystem = {
         if (existingShop) existingShop.remove();
 
         // 상점 생성
-        const shopElement = this.createShopElement();
+        const shopElement = this.createShop();
         document.body.appendChild(shopElement);
 
         // 상점 표시
@@ -74,8 +76,8 @@ const shopSystem = {
 
         // 나가기 버튼
         const exitBtn = shopElement.querySelector('#exit-shop');
-        exitBtn.onclick = () => {
-            this.hideShop();
+        exitBtn.onclick = function() {
+            shopSystem.hideShop();
             updateUI();
             battleSystem.startNewBattle();
         };
@@ -89,7 +91,7 @@ const shopSystem = {
             shop.remove();
         }
 
-        // 게임 컨테이너 다시 표시
+        // 게임 뷰 다시 표시
         const gameContainer = document.getElementById('game-container');
         if (gameContainer) {
             gameContainer.style.display = 'block';

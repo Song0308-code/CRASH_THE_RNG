@@ -69,10 +69,11 @@ const inventorySystem = {
     },
 
     showInventory() {
-        // 이미 열려있다면 닫기
+        // 이미 열려있으면 닫기
         const existingInventory = document.querySelector('.inventory-popup');
         if (existingInventory) {
             existingInventory.remove();
+            document.body.style.overflow = '';
             return;
         }
 
@@ -88,7 +89,8 @@ const inventorySystem = {
             const rect = inventoryBtn.getBoundingClientRect();
 
             
-            inventoryElement.style.position = 'absolute';
+            
+            inventoryElement.style.position = 'fixed';
             inventoryElement.style.visibility = 'hidden';
             inventoryElement.style.left = '0px';
             inventoryElement.style.top = '0px';
@@ -135,31 +137,34 @@ const inventorySystem = {
             }
 
             if (spaceBelow < popupHeight && spaceAbove > spaceBelow) {
-               
-                top = rect.top - popupHeight - 10 + window.scrollY;
+                
+                top = rect.top - popupHeight - 10;
             } else {
                 
-                top = rect.bottom + 10 + window.scrollY;
+                top = rect.bottom + 10;
             }
 
-            
-            const maxTop = window.innerHeight - popupHeight - margin + window.scrollY;
-            const minTop = margin + window.scrollY;
+           
+            const maxTop = window.innerHeight - popupHeight - margin;
+            const minTop = margin;
             if (top > maxTop) top = maxTop;
             if (top < minTop) top = minTop;
 
-            inventoryElement.style.left = `${left + window.scrollX}px`;
+            inventoryElement.style.left = `${left}px`;
             inventoryElement.style.top = `${top}px`;
             inventoryElement.style.visibility = 'visible';
-           
+            
+            document.body.style.overflow = 'hidden';
             inventoryElement.style.zIndex = 2000;
         } else {
             
-            inventoryElement.style.position = 'absolute';
+            inventoryElement.style.position = 'fixed';
             inventoryElement.style.left = `${(window.innerWidth - popupWidth)/2}px`;
-            inventoryElement.style.top = `${100 + window.scrollY}px`;
+            inventoryElement.style.top = `100px`;
             inventoryElement.style.zIndex = 2000;
             document.body.appendChild(inventoryElement);
+            
+            document.body.style.overflow = 'hidden';
         }
     },
 
@@ -167,6 +172,8 @@ const inventorySystem = {
         const inventory = document.querySelector('.inventory-popup');
         if (inventory) {
             inventory.remove();
+            
+            document.body.style.overflow = '';
         }
     },
 

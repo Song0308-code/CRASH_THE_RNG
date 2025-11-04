@@ -6,7 +6,9 @@
         <title>CRASH THE RNG</title>
         <style>
             :root{
-                --bg:skyblue; --panel:black; --fg:white;
+                --bg:#4682B4; 
+                --panel:#2F4F4F; 
+                --fg:#F0F8FF; 
             }
             html,body{height:100%;margin:0;font-family:system-ui,"Noto Sans KR",sans-serif}
             body{background:var(--bg);color:var(--fg)}
@@ -16,7 +18,7 @@
             #status-bar{position:absolute;top:18px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;font-size:18px}
 
             /* 적일러스트 */
-            .enemy-img{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:300px;height:300px;border-radius:10px;background:var(--panel);display:flex;align-items:center;justify-content:center;color:#000;font-size:28px}
+            .enemy-img{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:300px;height:300px;border-radius:10px;background:var(--panel);display:flex;align-items:center;justify-content:center;color:#DDD;font-size:28px}
 
             /* 적스탯 */
             .right-pos{position:absolute;right:56px;bottom:120px;display:flex;flex-direction:column;gap:28px}
@@ -35,14 +37,14 @@
             }
             /* 버튼올렸을때 */
             .action-btn:hover {
-                background: #5a5a5a;
+                background: #3D5A5A; 
                 transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                box-shadow: 0 4px 12px #1a1a1a;
             }
             /* 버튼눌렀을때 */
             .action-btn:active {
                 transform: translateY(1px);
-                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 6px #1a1a1a;
             }
 
             /* UI 구성 */
@@ -66,6 +68,7 @@
                 display:flex;
                 justify-content:center;
                 align-items:center;
+                background: rgba(0,0,0,0.4); 
                 z-index:900;
             }
 

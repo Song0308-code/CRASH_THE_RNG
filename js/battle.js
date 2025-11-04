@@ -8,7 +8,9 @@ const battleSystem = {
     init() {
         const attackButton = document.getElementById('attack-button');
         if (attackButton) {
-            attackButton.addEventListener('click', () => this.rollDice());
+            attackButton.addEventListener('click', function() {
+                battleSystem.rollDice();
+            });
         }
     },
 
@@ -59,14 +61,14 @@ const battleSystem = {
             attackButton.disabled = true;
             
             // 승리 처리
-            setTimeout(() => {
+            setTimeout(function() {
                 alert('전투 승리!');
                 floorSystem.nextFloor();
             }, 100);
         } else if (gameState.player.hp <= 0) {
             // 전투 버튼 비활성화
             attackButton.disabled = true;
-            setTimeout(() => {
+            setTimeout(function() {
                 alert('게임 오버...');
                 location.reload(); // 게임 재시작
             }, 100);
@@ -75,6 +77,6 @@ const battleSystem = {
 };
 
 // 전투 시스템 초기화
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     battleSystem.init();
 });

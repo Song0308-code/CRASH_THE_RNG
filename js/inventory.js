@@ -84,7 +84,7 @@ const inventorySystem = {
         const inventoryBtn = document.getElementById('inventory-button');
         const margin = 10;
         const popupWidth = 320; 
-
+        
         if (inventoryBtn) {
             const rect = inventoryBtn.getBoundingClientRect();
 

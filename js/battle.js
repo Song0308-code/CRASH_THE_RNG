@@ -13,7 +13,7 @@ const battleSystem = {
     },
 
     startNewBattle() {
-        // 새로운 전투 시작시 적 정보 초기화
+        // 새로운 전투 시작시 적 정보 초기화 이부분에서 밸런스 설정해야함.
         gameState.enemy.hp = gameState.enemy.maxHp;
         document.getElementById('enemy-hp').textContent = gameState.enemy.hp;
         // 전투 버튼 활성화
@@ -30,7 +30,7 @@ const battleSystem = {
         // 결과 표시
         alert(`당신의 주사위: ${playerRoll}\n적의 주사위: ${enemyRoll}`);
         
-        // 주사위 결과에 따른 대미지 계산 (2데미지 고정)
+        // 주사위 결과에 따른 대미지 계산 전투메커니즘 쪽 (2데미지 고정)
         if (playerRoll > enemyRoll) {
             // 플레이어 승리
             gameState.enemy.hp -= 2;

@@ -1,7 +1,7 @@
 // 층 관리 시스템
 const floorSystem = {
     currentFloor: 1,
-    maxFloor: 10,
+    maxFloor: 10, //일단 10층으로 설정해둠
 
     // 다음 층으로 이동
     nextFloor() {

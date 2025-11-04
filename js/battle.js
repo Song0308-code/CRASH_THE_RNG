@@ -3,7 +3,7 @@ function rollDice(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// 전투 시스템
+// 전투 시스템 일단 메커니즘 구현은 ppt기준으로 돠어았어서 바꿔야함.
 const battleSystem = {
     init() {
         const attackButton = document.getElementById('attack-button');

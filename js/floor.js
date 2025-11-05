@@ -33,8 +33,8 @@ const floorSystem = {
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-        `;
+            z-index: 1000;    
+        `; 
 
         const choiceContainer = document.createElement('div');
         choiceContainer.style.cssText = `
@@ -45,7 +45,7 @@ const floorSystem = {
         `;
 
         const title = document.createElement('h2');
-        title.textContent = `${this.currentFloor}층에 도착하였습니다!`; //방금 여기부분 건드렸음
+        title.textContent = `${this.currentFloor}층에 도착했습니다!`; //방금 여기부분 건드렸음
         title.style.marginBottom = '20px';
 
         const battleButton = document.createElement('button');
@@ -76,7 +76,7 @@ const floorSystem = {
 };
 
 // 초기화
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('current-floor').textContent = floorSystem.currentFloor;
     document.getElementById('total-floors').textContent = floorSystem.maxFloor;
 });

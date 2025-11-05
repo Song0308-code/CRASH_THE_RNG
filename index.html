@@ -9,19 +9,59 @@
                 --bg:#4682B4; 
                 --panel:#2F4F4F; 
                 --fg:#F0F8FF; 
+                --accent:#ffd700; /* 상점 버튼/가격 강조색 */
             }
-            html,body{height:100%;margin:0;font-family:system-ui,"Noto Sans KR",sans-serif}
+            html,body{
+                height:100%;
+                margin:0;
+                font-family:system-ui,"Noto Sans KR",sans-serif
+            }
             body{background:var(--bg);color:var(--fg)}
-            #game-container{position:relative;width:100%;height:100vh;overflow:hidden;display:none}
+            #game-container{
+                position:relative;
+                width:100%;height:100vh;
+                overflow:hidden;
+                display:none
+            }
 
             /* 스탯 */
-            #status-bar{position:absolute;top:18px;left:40px;right:40px;display:flex;justify-content:space-between;align-items:center;font-size:18px}
+            #status-bar{
+                position:absolute;
+                top:18px;
+                left:40px;
+                right:40px;
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                font-size:18px;
+            }
 
             /* 적일러스트 */
-            .enemy-img{position:absolute;left:50%;top:60px;transform:translateX(-50%);width:300px;height:300px;border-radius:10px;background:var(--panel);display:flex;align-items:center;justify-content:center;color:#DDD;font-size:28px}
+            .enemy-img{
+                position:absolute;
+                left:50%;
+                top:60px;
+                transform:translateX(-50%);
+                width:300px;
+                height:300px;
+                border-radius:10px;
+                background:var(--panel);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                color:#DDD;
+                font-size:28px
+            }
 
             /* 적스탯 */
-            .right-pos{position:absolute;right:56px;bottom:120px;display:flex;flex-direction:column;gap:28px}
+            .right-pos{
+                position:absolute;
+                right:56px;
+                bottom:120px;
+                display:flex;
+                flex-direction:column;
+                gap:28px
+            }
             /*모든 버튼 스타일 */
             .action-btn {
                 width: 260px;
@@ -48,13 +88,48 @@
             }
 
             /* UI 구성 */
-            #inventory{position:absolute;left:56px;top:220px;width:360px}
-            .inventory-box{width:360px;height:140px;border-radius:80px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:28px}
-            #left-panel{position:absolute;left:56px;bottom:56px;display:flex;flex-direction:column;gap:18px}
-            .small-box{width:220px;height:72px;border-radius:40px;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:20px}
+            #inventory{
+                position:absolute;
+                left:56px;
+                top:220px;
+                width:360px
+            }
+            .inventory-box{
+                width:360px;
+                height:140px;
+                border-radius:80px;
+                background:var(--panel);
+                display:flex;
+                align-items:center;justify-content:center;
+                font-size:28px
+            }
+            #left-panel{
+                position:absolute;
+                left:56px;
+                bottom:56px;
+                display:flex;
+                flex-direction:column;
+                gap:18px
+            }
+            .small-box{
+                width:220px;
+                height:72px;
+                border-radius:40px;
+                background:var(--panel);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:20px
+            }
 
             /* 적 스탯 */
-            .enemy-info-text{position:absolute;left:50%;top:380px;transform:translateX(-50%);text-align:center}
+            .enemy-info-text{
+                position:absolute;
+                left:50%;
+                top:380px;
+                transform:translateX(-50%);
+                text-align:center
+            }
             .enemy-info-text div{margin:6px 0}
 
             /* 인벤토리 버튼용 넓은 버튼*/
@@ -104,8 +179,59 @@
             #enemy-hp{   /* 나중에 적 체력 바꾸려고 id로 구성 */
                 font-size:20px;
             }
-            
+            .shop-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+            .shop-window {
+                background: var(--bg);
+                border-radius: 24px;
+                padding: 32px;
+                width: 900px;
+                max-height: 80vh;
+                overflow-y: auto;
+                position: relative;
+            }
+            .shop-title {
+                text-align: center;
+                font-size: 30px;
+                margin-bottom: 40px;
+            }
+            .shop-btn {
+                width: 100%;
+                height: 60px;
+                border-radius: 30px;
+                background: var(--accent);
+                border: none;
+                color: var(--fg);
+                font-size: 20px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
 
+            .shop-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }
+
+            .shop-btn:active {
+                transform: translateY(1px);
+            }
+
+
+            #exit-shop {
+                width: 260px;
+                margin: 0 auto;
+                display: block;
+            }
         </style>
     </head>
     <body>
@@ -116,9 +242,22 @@
                 <div class="start-text">Crash The RNG</div>
                 <button id="start-game-button" class="action-btn" style="width:320px;height:72px;font-size:20px">게임 시작</button>
             </div>
-        </div>
+            </div>
+            <!-- 상점 UI -->
+            <div class="shop-overlay" id="shop-overlay" style="display:none">
+                <div class="shop-window">
+                    <h1 class="shop-title">상점</h1>
+                    <div>
+                        <div id="shop-gold">보유골드: 0G</div>
+                    </div>
+                    <div id="shop-items" class="shop-items">
+                        
+                    </div>
+                    <button id="exit-shop" class="shop-btn">상점 나가기</button>
+                </div>
+            </div>
 
-        <div id="game-container">
+    <div id="game-container">
             <!-- 게임 상태   -->
             <div id="status-bar">
                 <div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
@@ -142,19 +281,18 @@
 
             <!-- 인벤토리 버튼 -->
             <div id="inventory">
-                <button class="action-btn" id="inventory-button">인벤토리</button>
+                <button class="action-btn">인벤토리</button>
             </div>
 
             <!-- PC 스탯 -->
             <div id="left-panel">
-                <div class="small-box">플레이어 스탯</div>
+                <div class="small-box" id="player-stats">플레이어 스탯</div>
             </div>
         </div>
         <!-- 자바 스크립트 소스 -->
         <script src="js/gameState.js"></script>
         <script src="js/floor.js"></script>
         <script src="js/battle.js"></script>
-        <script src="js/inventory.js"></script>
         <script src="js/shop.js"></script>
         <script src="js/main.js"></script>
     </body>

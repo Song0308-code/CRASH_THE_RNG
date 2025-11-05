@@ -2,14 +2,6 @@
 
 const shopSystem = {
     init() {
-        // 테스트 버튼
-        const testButton = document.getElementById('test-shop-button');
-        if (testButton) {
-            testButton.addEventListener('click', function() {
-                shopSystem.showShop();
-            });
-        }
-        
         const exitBtn = document.getElementById('exit-shop'); //상점 나가는 버튼.
         if (exitBtn) {
             exitBtn.addEventListener('click', function() {
@@ -22,12 +14,7 @@ const shopSystem = {
         }
     },
 
-    
-    items: [],
-
-    
-    
-    renderShop() {
+    initShop() {
         const overlay = document.getElementById('shop-overlay');
         const itemsContainer = document.getElementById('shop-items');
         const hadgold = document.getElementById('shop-gold');
@@ -35,9 +22,6 @@ const shopSystem = {
 
         // 보유 골드 갱신해주기
         hadgold.textContent = `보유골드: ${gameState.player.gold}G`;
-
-        // 아이템 렌더링 없음 (단순 UI용)
-        itemsContainer.innerHTML = '';
     },
     
 
@@ -51,7 +35,7 @@ const shopSystem = {
         const overlay = document.getElementById('shop-overlay');
         if (!overlay) return;
 
-        this.renderShop();
+        this.initShop();
         overlay.style.display = 'flex';
         overlay.style.justifyContent = 'center';
         overlay.style.alignItems = 'center';
@@ -66,9 +50,9 @@ const shopSystem = {
         }
 
         // 게임 UI 다시 표시
-            const gameContainer = document.getElementById('game-container');
-            if (gameContainer) {
-                gameContainer.style.display = 'block';
+        const gameContainer = document.getElementById('game-container');
+        if (gameContainer) {
+            gameContainer.style.display = 'block';
         }
     },
 

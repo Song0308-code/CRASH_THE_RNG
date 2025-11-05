@@ -44,8 +44,6 @@ const battleSystem = {
         } else {
             alert('동점! 아무도 데미지를 받지 않았습니다.');
         }
-        
-        // UI 업데이트
         document.getElementById('enemy-hp').textContent = gameState.enemy.hp;
         updateUI();
         

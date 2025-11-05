@@ -16,15 +16,19 @@
                 margin:0;
                 font-family:system-ui,"Noto Sans KR",sans-serif
             }
-            body{background:var(--bg);color:var(--fg)}
+            body{
+                background:var(--bg);
+                color:var(--fg)
+            }
             #game-container{
                 position:relative;
-                width:100%;height:100vh;
+                width:100%;
+                height:100vh;
                 overflow:hidden;
                 display:none
             }
 
-            /* 스탯 */
+            /* 게임 상태 띄우기 용 */
             #status-bar{
                 position:absolute;
                 top:18px;
@@ -53,7 +57,7 @@
                 font-size:28px
             }
 
-            /* 적스탯 */
+            /* 버튼위치 조정*/
             .right-pos{
                 position:absolute;
                 right:56px;
@@ -94,16 +98,7 @@
                 top:220px;
                 width:360px
             }
-            .inventory-box{
-                width:360px;
-                height:140px;
-                border-radius:80px;
-                background:var(--panel);
-                display:flex;
-                align-items:center;justify-content:center;
-                font-size:28px
-            }
-            #left-panel{
+            #left-pos{
                 position:absolute;
                 left:56px;
                 bottom:56px;
@@ -130,7 +125,10 @@
                 transform:translateX(-50%);
                 text-align:center
             }
-            .enemy-info-text div{margin:6px 0}
+            /* 적 스탯 뜨는거 거리 띄우기용*/
+            .enemy-info-text div{
+                margin:6px 0;
+            }
 
             /* 인벤토리 버튼용 넓은 버튼*/
             .wide-btn {
@@ -170,7 +168,7 @@
               /*게임 시작 부분에 쓸것*/
             .start-text{
                 color:var(--fg);
-                min-height:48px;
+                min-height:50px;
             }
             #enemy-name{   /* 나중에 적 여러개 만들때 편하게 바꿀라고 만들어둠*/
                 font-size:24px;
@@ -193,8 +191,8 @@
             }
             .shop-window {
                 background: var(--bg);
-                border-radius: 24px;
-                padding: 32px;
+                border-radius: 25px;
+                padding: 30px;
                 width: 900px;
                 max-height: 80vh;
                 overflow-y: auto;
@@ -265,7 +263,7 @@
                 <div>골드: <strong id="player-gold">15</strong>G</div>
             </div>
 
-            <!-- 적 일러스트 -> 다른 스타일 시트에서 img만 넣으면 됨-->
+            <!--  적 이미지-->
             <div class="enemy-img" ></div>
 
             <!-- DICE 버튼 -->
@@ -285,7 +283,7 @@
             </div>
 
             <!-- PC 스탯 -->
-            <div id="left-panel">
+            <div id="left-pos">
                 <div class="small-box" id="player-stats">플레이어 스탯</div>
             </div>
         </div>

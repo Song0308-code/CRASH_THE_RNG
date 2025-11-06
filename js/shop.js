@@ -23,9 +23,9 @@ const shopSystem = {
 
     showShop() {
         //전투 씬일시에 전투ui 숨기기
-            const gameContainer = document.getElementById('battle_UI');
-            if (gameContainer) {
-                gameContainer.style.display = 'none';
+        const gameContainer = document.getElementById('battle_UI');
+        if (gameContainer) {
+            gameContainer.style.display = 'none';
         }
         //상점 창 띄우기.
         const shop_UI = document.getElementById('shop_UI');

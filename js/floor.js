@@ -65,7 +65,6 @@ const floorSystem = {
                 shopSystem.showShop();
             }
         };
-
         choiceContainer.appendChild(title);
         choiceContainer.appendChild(battleButton);
         choiceContainer.appendChild(shopButton);

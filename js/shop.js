@@ -1,5 +1,3 @@
-
-
 const shopSystem = {
     init() {
         const exitBtn = document.getElementById('exit-shop'); //상점 나가는 버튼.
@@ -16,10 +14,8 @@ const shopSystem = {
 
     initShop() {
         const overlay = document.getElementById('shop-overlay');
-        const itemsContainer = document.getElementById('shop-items');
         const hadgold = document.getElementById('shop-gold');
-        if (!overlay || !itemsContainer || !hadgold) return;
-
+        if (!overlay ||  !hadgold) return;
         // 보유 골드 갱신해주기
         hadgold.textContent = `보유골드: ${gameState.player.gold}G`;
     },
@@ -27,7 +23,7 @@ const shopSystem = {
 
     showShop() {
         //전투 씬일시에 전투ui 숨기기
-            const gameContainer = document.getElementById('game-container');
+            const gameContainer = document.getElementById('battle_UI');
             if (gameContainer) {
                 gameContainer.style.display = 'none';
         }
@@ -50,7 +46,7 @@ const shopSystem = {
         }
 
         // 게임 UI 다시 표시
-        const gameContainer = document.getElementById('game-container');
+        const gameContainer = document.getElementById('battle_UI');
         if (gameContainer) {
             gameContainer.style.display = 'block';
         }

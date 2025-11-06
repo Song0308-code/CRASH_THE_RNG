@@ -5,22 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>CRASH THE RNG</title>
         <style>
-            :root{
-                --bg:#4682B4; 
-                --panel:#2F4F4F; 
-                --fg:#F0F8FF; 
-                --accent:#ffd700; /* 상점 버튼/가격 강조색 */
-            }
             html,body{
                 height:100%;
                 margin:0;
                 font-family:system-ui,"Noto Sans KR",sans-serif
             }
             body{
-                background:var(--bg);
-                color:var(--fg)
+                background:#4682B4;
+                color:#F0F8FF;
             }
-            #game-container{
+            #battle_UI{
                 position:relative;
                 width:100%;
                 height:100vh;
@@ -35,35 +29,33 @@
                 left:40px;
                 right:40px;
                 display:flex;
-                justify-content:space-between;
                 align-items:center;
                 font-size:18px;
+                gap: 10px;
             }
 
             /* 적일러스트 */
             .enemy-img{
                 position:absolute;
                 left:50%;
-                top:60px;
                 transform:translateX(-50%);
+                top:60px;
                 width:300px;
                 height:300px;
                 border-radius:10px;
-                background:var(--panel);
+                background:#2F4F4F;
                 display:flex;
                 align-items:center;
                 justify-content:center;
-                color:#DDD;
                 font-size:28px
             }
 
             /* 버튼위치 조정*/
-            .right-pos{
+            .Dice-btn{
                 position:absolute;
                 right:56px;
                 bottom:120px;
                 display:flex;
-                flex-direction:column;
                 gap:28px
             }
             /*모든 버튼 스타일 */
@@ -71,9 +63,9 @@
                 width: 260px;
                 height: 110px;
                 border-radius: 60px;
-                background: var(--panel);
+                background: #2F4F4F;
                 border: none;
-                color: var(--fg);
+                color: #F0F8FF;
                 font-size: 28px;
                 cursor: pointer;
                 transition: all 0.2s ease;
@@ -98,7 +90,7 @@
                 top:220px;
                 width:360px
             }
-            #left-pos{
+            #stats-pos{
                 position:absolute;
                 left:56px;
                 bottom:56px;
@@ -110,7 +102,7 @@
                 width:220px;
                 height:72px;
                 border-radius:40px;
-                background:var(--panel);
+                background:#2F4F4F;
                 display:flex;
                 align-items:center;
                 justify-content:center;
@@ -134,7 +126,7 @@
             .wide-btn {
                 width: 360px;
             }
-            /* 시작 화면 스타일 */
+            /* 시작 화면 */
             .start-screen{
                 position:fixed;
                 inset:0;
@@ -142,7 +134,6 @@
                 justify-content:center;
                 align-items:center;
                 background: rgba(0,0,0,0.4); 
-                z-index:900;
             }
 
             .start-content{
@@ -167,7 +158,7 @@
             }
               /*게임 시작 부분에 쓸것*/
             .start-text{
-                color:var(--fg);
+                color:var#F0F8FF;
                 min-height:50px;
             }
             #enemy-name{   /* 나중에 적 여러개 만들때 편하게 바꿀라고 만들어둠*/
@@ -187,10 +178,10 @@
                 display: none;
                 justify-content: center;
                 align-items: center;
-                z-index: 1000;
+                z-index: 2;
             }
             .shop-window {
-                background: var(--bg);
+                background: #4682B4;
                 border-radius: 25px;
                 padding: 30px;
                 width: 900px;
@@ -203,27 +194,7 @@
                 font-size: 30px;
                 margin-bottom: 40px;
             }
-            .shop-btn {
-                width: 100%;
-                height: 60px;
-                border-radius: 30px;
-                background: var(--accent);
-                border: none;
-                color: var(--fg);
-                font-size: 20px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-
-            .shop-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            }
-
-            .shop-btn:active {
-                transform: translateY(1px);
-            }
-
+            
 
             #exit-shop {
                 width: 260px;
@@ -235,27 +206,24 @@
     <body>
         <!-- 게임 시작 UI -->
         <div id="start-screen" class="start-screen">
-            <div class="start-content">
+            <div class="start-content" >
                 <div class="start-art"></div>
                 <div class="start-text">Crash The RNG</div>
-                <button id="start-game-button" class="action-btn" style="width:320px;height:72px;font-size:20px">게임 시작</button>
+                <button id="start-game-button" class="action-btn">게임 시작</button>
             </div>
-            </div>
+        </div>
             <!-- 상점 UI -->
-            <div class="shop-overlay" id="shop-overlay" style="display:none">
+        <div class="shop-overlay" id="shop-overlay" style="display:none">
                 <div class="shop-window">
                     <h1 class="shop-title">상점</h1>
-                    <div>
+                    <div >
                         <div id="shop-gold">보유골드: 0G</div>
                     </div>
-                    <div id="shop-items" class="shop-items">
-                        
-                    </div>
-                    <button id="exit-shop" class="shop-btn">상점 나가기</button>
+                    <button id="exit-shop" class="action-btn">상점 나가기</button>
                 </div>
-            </div>
+        </div>
 
-    <div id="game-container">
+        <div id="battle_UI">
             <!-- 게임 상태   -->
             <div id="status-bar">
                 <div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
@@ -267,7 +235,7 @@
             <div class="enemy-img" ></div>
 
             <!-- DICE 버튼 -->
-            <div class="right-pos">
+            <div class="Dice-btn">
                 <button class="action-btn" id="attack-button">DICE!</button>
             </div>
 
@@ -283,7 +251,7 @@
             </div>
 
             <!-- PC 스탯 -->
-            <div id="left-pos">
+            <div id="stats-pos">
                 <div class="small-box" id="player-stats">플레이어 스탯</div>
             </div>
         </div>

@@ -29,16 +29,15 @@ const floorSystem = {
         choiceOverlay.style.cssText = `
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
+            background: black;
             display: flex;
             justify-content: center;
-            align-items: center;
-            z-index: 1000;    
+            align-items: center;    
         `; 
 
         const choiceContainer = document.createElement('div');
         choiceContainer.style.cssText = `
-            background: var(--panel);
+            background: #2F4F4F;
             padding: 40px;
             border-radius: 20px;
             text-align: center;
@@ -53,7 +52,7 @@ const floorSystem = {
         battleButton.textContent = '전투 시작';
         battleButton.style.marginRight = '10px';
         battleButton.onclick = () => {
-            document.body.removeChild(choiceOverlay);
+            document.body.removeChild(choiceOverlay); //선택창을 제거하고 새로운 전투 시작.
             battleSystem.startNewBattle();
         };
 
@@ -61,7 +60,7 @@ const floorSystem = {
         shopButton.className = 'action-btn';
         shopButton.textContent = '상점 방문';
         shopButton.onclick = () => {
-            document.body.removeChild(choiceOverlay);
+            document.body.removeChild(choiceOverlay); //선택창 제거하고 상점으로 이동하기.
             if (typeof shopSystem !== 'undefined' && typeof shopSystem.showShop === 'function') {
                 shopSystem.showShop();
             }

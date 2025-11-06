@@ -33,9 +33,6 @@
                 font-size:18px;
                 gap: 10px;
             }
-
-            
-
             /* 버튼위치 조정*/
             .Dice-btn{
                 position:absolute;
@@ -44,6 +41,7 @@
                 display:flex;
                 gap:28px
             }
+
             /*모든 버튼 스타일 */
             .action-btn {
                 width: 260px;
@@ -57,18 +55,19 @@
                 transition: all 0.2s ease;
                 user-select: none;
             }
+
             /* 버튼올렸을때 */
             .action-btn:hover {
                 background: #3D5A5A; 
                 transform: translateY(-2px);
                 box-shadow: 0 4px 12px #1a1a1a;
             }
+
             /* 버튼눌렀을때 */
             .action-btn:active {
                 transform: translateY(1px);
                 box-shadow: 0 2px 6px #1a1a1a;
             }
-
             /* UI 구성 */
             #inventory{
                 position:absolute;
@@ -136,7 +135,6 @@
                 background: rgba(0,0,0,0.4); 
             }
             
-
             .start-content{
                 width:720px;
                 max-width:90%;
@@ -213,12 +211,13 @@
                 <button id="start-game-button" class="action-btn">게임 시작</button>
             </div>
         </div>
-            <!-- 상점 UI -->
-        <div class="shop_UI" id="shop_UI" style="display:none">
+
+         <!-- 상점 UI -->
+        <div class="shop_UI" id="shop_UI" style="display:none"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
                 <div class="shop-window">
                     <h1 class="shop-title">상점</h1>
                     <div >
-                        <div id="shop-gold">보유골드: 0G</div>
+                        <div id="shop-gold">보유골드: 0G</div> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
                     </div>
                     <button id="exit-shop" class="action-btn">상점 나가기</button>
                 </div>
@@ -226,7 +225,7 @@
 
         <div id="battle_UI">
             <!-- 게임 상태   -->
-            <div id="status-bar">
+            <div id="status-bar"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
                 <div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
                 <div>체력: <strong id="player-hp">5</strong>/<span id="player-max-hp">10</span></div>
                 <div>골드: <strong id="player-gold">15</strong>G</div>
@@ -242,17 +241,17 @@
 
             <!-- 적 -->
             <div class="enemy-info">
-                <div id="enemy-name">몬스터</div>
-                <div>몬스터 체력: <span id="enemy-hp">0</span></div>
+                <div id="enemy-name">몬스터</div> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+                <div>몬스터 체력: <span id="enemy-hp">0</span></div><!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
             </div>
 
             <!-- 인벤토리 버튼 -->
-            <div id="inventory">
+            <div id="inventory"> 
                 <button class="action-btn">인벤토리</button>
             </div>
 
             <!-- PC 스탯 -->
-            <div id="stats-pos">
+            <div id="stats-pos"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
                 <div class="player-stats" id="player-stats">플레이어 스탯</div>
             </div>
         </div>

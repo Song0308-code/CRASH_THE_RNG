@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 시작 버튼(타이틀) 처리
     const startBtn = document.getElementById('start-game-button');
-    const startScreen = document.getElementById('start-screen');
+    const start_UI = document.getElementById('start_UI');
     const gameContainer = document.getElementById('battle_UI');
 
     if (startBtn) {
         startBtn.addEventListener('click', () => {
-            if (startScreen) startScreen.style.display = 'none';
+            if (start_UI) start_UI.style.display = 'none';
             if (gameContainer) gameContainer.style.display = 'block';
 
             // UI 초기화

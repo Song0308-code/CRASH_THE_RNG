@@ -34,21 +34,7 @@
                 gap: 10px;
             }
 
-            /* 적일러스트 */
-            .enemy-img{
-                position:absolute;
-                left:50%;
-                transform:translateX(-50%);
-                top:60px;
-                width:300px;
-                height:300px;
-                border-radius:10px;
-                background:#2F4F4F;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                font-size:28px
-            }
+            
 
             /* 버튼위치 조정*/
             .Dice-btn{
@@ -95,10 +81,8 @@
                 left:56px;
                 bottom:56px;
                 display:flex;
-                flex-direction:column;
-                gap:18px
             }
-            .small-box{
+            .player-stats{
                 width:220px;
                 height:72px;
                 border-radius:40px;
@@ -108,9 +92,25 @@
                 justify-content:center;
                 font-size:20px
             }
-
+            /* 적일러스트 */
+            .enemy-img{
+                position:absolute;
+                left:50%;
+                transform:translateX(-50%);
+                top:60px;
+                width:300px;
+                height:300px;
+                border-radius:10px;
+                background:#2F4F4F;
+                background-image:url('monster.png');
+                background-size:cover;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:28px
+            }
             /* 적 스탯 */
-            .enemy-info-text{
+            .enemy-info{
                 position:absolute;
                 left:50%;
                 top:380px;
@@ -118,7 +118,7 @@
                 text-align:center
             }
             /* 적 스탯 뜨는거 거리 띄우기용*/
-            .enemy-info-text div{
+            .enemy-info div{
                 margin:6px 0;
             }
 
@@ -127,7 +127,7 @@
                 width: 360px;
             }
             /* 시작 화면 */
-            .start-screen{
+            .start_UI{
                 position:fixed;
                 inset:0;
                 display:flex;
@@ -135,6 +135,7 @@
                 align-items:center;
                 background: rgba(0,0,0,0.4); 
             }
+            
 
             .start-content{
                 width:720px;
@@ -146,7 +147,7 @@
                 align-items:center;
             }
              /*게임 시작 ui */
-            .start-art {
+            .start-img {
                   width: 100%;
                   height: 500px;
                   border-radius: 18px;
@@ -168,7 +169,7 @@
             #enemy-hp{   /* 나중에 적 체력 바꾸려고 id로 구성 */
                 font-size:20px;
             }
-            .shop-overlay {
+            .shop_UI {
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -205,15 +206,15 @@
     </head>
     <body>
         <!-- 게임 시작 UI -->
-        <div id="start-screen" class="start-screen">
+        <div id='start_UI' class="start_UI">
             <div class="start-content" >
-                <div class="start-art"></div>
+                <div class="start-img"></div>
                 <div class="start-text">Crash The RNG</div>
                 <button id="start-game-button" class="action-btn">게임 시작</button>
             </div>
         </div>
             <!-- 상점 UI -->
-        <div class="shop-overlay" id="shop-overlay" style="display:none">
+        <div class="shop_UI" id="shop_UI" style="display:none">
                 <div class="shop-window">
                     <h1 class="shop-title">상점</h1>
                     <div >
@@ -240,7 +241,7 @@
             </div>
 
             <!-- 적 -->
-            <div class="enemy-info-text">
+            <div class="enemy-info">
                 <div id="enemy-name">몬스터</div>
                 <div>몬스터 체력: <span id="enemy-hp">0</span></div>
             </div>
@@ -252,7 +253,7 @@
 
             <!-- PC 스탯 -->
             <div id="stats-pos">
-                <div class="small-box" id="player-stats">플레이어 스탯</div>
+                <div class="player-stats" id="player-stats">플레이어 스탯</div>
             </div>
         </div>
         <!-- 자바 스크립트 소스 -->

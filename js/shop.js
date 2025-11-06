@@ -13,9 +13,9 @@ const shopSystem = {
     },
 
     initShop() {
-        const overlay = document.getElementById('shop-overlay');
+        const shop_UI = document.getElementById('shop_UI');
         const hadgold = document.getElementById('shop-gold');
-        if (!overlay ||  !hadgold) return;
+        if (!shop_UI ||  !hadgold) return;
         // 보유 골드 갱신해주기
         hadgold.textContent = `보유골드: ${gameState.player.gold}G`;
     },
@@ -28,21 +28,21 @@ const shopSystem = {
                 gameContainer.style.display = 'none';
         }
         //상점 창 띄우기.
-        const overlay = document.getElementById('shop-overlay');
-        if (!overlay) return;
+        const shop_UI = document.getElementById('shop_UI');
+        if (!shop_UI) return;
 
         this.initShop();
-        overlay.style.display = 'flex';
-        overlay.style.justifyContent = 'center';
-        overlay.style.alignItems = 'center';
-        
+        shop_UI.style.display = 'flex';
+        shop_UI.style.justifyContent = 'center';
+        shop_UI.style.alignItems = 'center';
+
     },
 
     hideShop() {
         // 상점 숨기기
-        const overlay = document.getElementById('shop-overlay');
-        if (overlay) {
-            overlay.style.display = 'none';
+        const shop_UI = document.getElementById('shop_UI');
+        if (shop_UI) {
+            shop_UI.style.display = 'none';
         }
 
         // 게임 UI 다시 표시
@@ -52,5 +52,4 @@ const shopSystem = {
         }
     },
 
-    buyItem() {  }
 };

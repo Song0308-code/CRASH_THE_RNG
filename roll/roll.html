@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		dice ui
+	</title>
+	<style>
+		
+	</style>
+</head>
+
+<body>
+	<section id="diceUI">
+		<div class="rollDisplay">
+			Roll: 0/2
+		</div>
+
+		<section class="grid">
+			<section class="cell" , id="c1">
+			</section>
+			<section class="cell" , id="c2">
+			</section>
+			<section class="cell" , id="c3">
+			</section>
+			<section class="cell" , id="c4">
+			</section>
+		</section>
+
+		<section id="diceControls">
+			<button id="rollButton" onclick="onRollClick()" , disabled>
+				<div>
+					roll
+				</div>
+			</button>
+			<button id="confirmButton" onclick="onConfirmClick()" , disabled>
+				<div>
+					confirm
+				</div>
+			</button>
+			<div class="scoreDisplay" , style="text-align: right; flex-grow: 1">
+				0
+			</div>
+		</section>
+
+	</section>
+	<script src="roll.js" defer></script>
+</body>
+
+</html>

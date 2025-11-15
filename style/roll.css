@@ -1,0 +1,64 @@
+#diceUI {
+	flex-grow: 1;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: center;
+	gap: 5px;
+}
+
+/* 단독으로 존재하는 텍스트를 div로 감쌌습니다 */
+#diceUI div {
+	font-size: 130%;
+}
+
+#diceUI .grid {
+	border: 3px;
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
+	aspect-ratio: 1 / 1;
+	width: 1fr;
+	gap: 0.5em;
+}
+
+#diceUI .cell {
+	border: 3px solid black;
+	padding: 0.5em;
+	text-align: center;
+	align-content: center;
+	vertical-align: middle;
+	max-width: 1fr;
+	max-height: 1fr;
+
+	font-size: 2.5rem;
+}
+
+#diceUI .cell:hover {
+	box-shadow: 0 0 1cqb #333;
+}
+
+#diceUI .cell[draggable=true]:hover {
+	cursor: move;
+}
+
+#diceUI .cell[data-locked=true] {
+	color: red;
+}
+
+#diceUI .cell[data-determined=true] {
+	border-color: red;
+}
+
+/* 그리드 하단 UI */
+#diceUI #diceControls {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: left;
+	gap: 0.25em
+}
+
+#diceUI #diceControls>button {
+	padding: 3px;
+}

@@ -201,6 +201,7 @@
                 display: block;
             }
         </style>
+		<link href="style/roll.css" rel="stylesheet" />
     </head>
     <body>
         <!-- 게임 시작 UI -->
@@ -223,16 +224,19 @@
                 </div>
         </div>
 
+		<!-- 전투 UI -->
         <div id="battle_UI">
-            <!-- 게임 상태   -->
-            <div id="status-bar"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
-                <div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
-                <div>체력: <strong id="player-hp">5</strong>/<span id="player-max-hp">10</span></div>
-                <div>골드: <strong id="player-gold">15</strong>G</div>
-            </div>
+            <!-- 게임 상태 -->
+			<section>
+				<div id="status-bar"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+					<div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
+					<div>체력: <strong id="player-hp">5</strong>/<span id="player-max-hp">10</span></div>
+					<div>골드: <strong id="player-gold">15</strong>G</div>
+				</div>
 
-            <!--  적 이미지-->
-            <div class="enemy-img" ></div>
+				<!-- 적 이미지 -->
+				<div class="enemy-img" ></div>
+			</section>
 
             <!-- DICE 버튼 -->
             <div class="Dice-btn">
@@ -248,18 +252,20 @@
             <!-- 인벤토리 버튼 -->
             <div id="inventory"> 
                 <button class="action-btn">인벤토리</button>
-            </div>
+            </div> 
 
             <!-- PC 스탯 -->
             <div id="stats-pos"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
                 <div class="player-stats" id="player-stats">플레이어 스탯</div>
             </div>
         </div>
+
         <!-- 자바 스크립트 소스 -->
         <script src="js/gameState.js"></script>
         <script src="js/floor.js"></script>
         <script src="js/battle.js"></script>
         <script src="js/shop.js"></script>
         <script src="js/main.js"></script>
+		<script src="roll/roll.js"></script>
     </body>
 </html>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>UI Experiment</title>
+	<style>
+		html,
+		body {
+			max-width: 100dvw;
+			max-height: 100dvh;
+			aspect-ratio: 16/9;
+			overflow: hidden;
+			margin: 0;
+			font-family: "Noto Sans KR", system-ui, sans-serif
+		}
+
+		body {
+			background: #4682B4;
+			color: #F0F8FF;
+		}
+
+		/*모든 버튼 스타일 */
+		.action-btn {
+			display: block;
+			border-radius: 2rem;
+			aspect-ratio: 3/1;
+
+			background: #2F4F4F;
+			border: none;
+			color: #F0F8FF;
+
+			font-size: 1rem;
+			white-space: nowrap;
+			text-align: center;
+
+			cursor: pointer;
+			transition: all 0.2s ease;
+			user-select: none;
+		}
+
+		/* 버튼올렸을때 */
+		.action-btn:hover {
+			background: #3D5A5A;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px #1a1a1a;
+		}
+
+		/* 버튼눌렀을때 */
+		.action-btn:active {
+			transform: translateY(1px);
+			box-shadow: 0 2px 6px #1a1a1a;
+		}
+
+		/* 시작 화면 */
+		.start_UI {
+			position: fixed;
+			inset: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: rgba(0, 0, 0, 0.4);
+		}
+
+		.start-content {
+			width: 720px;
+			max-width: 90%;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			align-items: center;
+		}
+
+		/*게임 시작 ui */
+		.start-img {
+			width: 100%;
+			height: 500px;
+			border-radius: 18px;
+			background-image: url('alice.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+
+		}
+
+		/*게임 시작 부분에 쓸것*/
+		.start-text {
+			color: var#F0F8FF;
+			min-height: 50px;
+		}
+
+		#enemy-name {
+			/* 나중에 적 여러개 만들때 편하게 바꿀라고 만들어둠*/
+			font-size: 100%;
+			font-weight: bold;
+		}
+
+		#enemy-hp {
+			/* 나중에 적 체력 바꾸려고 id로 구성 */
+			font-size: 20px;
+		}
+
+		.shop_UI {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			display: none;
+			justify-content: center;
+			align-items: center;
+			z-index: 2;
+		}
+
+		.shop-window {
+			background: #4682B4;
+			border-radius: 25px;
+			padding: 30px;
+			width: 900px;
+			max-height: 80vh;
+			overflow-y: auto;
+			position: relative;
+		}
+
+		.shop-title {
+			text-align: center;
+			font-size: 150%;
+			margin-bottom: 40px;
+		}
+
+		#exit-shop {
+			width: 260px;
+			margin: 0 auto;
+			display: block;
+		}
+
+		.button {
+			text-align: center;
+			vertical-align: center;
+		}
+	</style>
+
+	<link href="style/battle.css" rel="stylesheet" />
+	<link href="style/roll.css" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- 게임 시작 UI -->
+	<div id="start_UI" class="start_UI" stlye="display: block;">
+		<div class="start-content">
+			<div class="start-img"></div>
+			<div class="start-text">Crash The RNG</div>
+			<button id="start-game-button" class="action-btn">게임 시작</button>
+		</div>
+	</div>
+
+	<!-- 상점 UI -->
+	<div class="shop_UI" id="shop_UI" style="display:none"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+		<div class="shop-window">
+			<h1 class="shop-title">상점</h1>
+			<div>
+				<div id="shop-gold">보유골드: 0G</div> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+			</div>
+			<button id="exit-shop" class="action-btn">상점 나가기</button>
+		</div>
+	</div>
+
+	<!-- 전투 UI -->
+	<div id="battle_UI">
+		<section id="battleContent">
+			<!-- 상단 바: 게임 상태, 기타 버튼 (cf. lh==line height) -->
+			<header style="display: flex; flex-wrap: nowrap; min-height: calc(fit-content + 1px); align-items: center;">
+				<div id="status-bar"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+					<div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
+					<div>체력: <strong id="player-hp">5</strong>/<span id="player-max-hp">10</span></div>
+					<div>골드: <strong id="player-gold">15</strong>G</div>
+				</div>
+				<div id="controls" style="flex-grow: 1; display: inline-flex; justify-content: right; gap: 0.3em">
+					<button>help</button>
+					<button>settings</button>
+				</div>
+			</header>
+
+			<main id="battleMain">
+
+				<!--주사위-->
+				<section id="diceUI">
+					<div class="rollDisplay">
+						Roll: 0/2
+					</div>
+
+					<section class="grid">
+						<section class="cell" , id="c1">
+						</section>
+						<section class="cell" , id="c2">
+						</section>
+						<section class="cell" , id="c3">
+						</section>
+						<section class="cell" , id="c4">
+						</section>
+					</section>
+
+					<section id="diceControls">
+						<button id="rollButton" onclick="onRollClick()" , disabled>
+							<div>
+								roll
+							</div>
+						</button>
+						<button id="confirmButton" onclick="onConfirmClick()" , disabled>
+							<div>
+								confirm
+							</div>
+						</button>
+						<div class="scoreDisplay" , style="text-align: right; flex-grow: 1">
+							0
+						</div>
+					</section>
+				</section>
+
+				<!--전투 관련 정보-->
+				<section id="monsterUI">
+					<!-- 적 이미지 -->
+					<div class="enemy-img" style="flex-grow: 1;"></div>
+
+					<!-- 적 -->
+					<div class="enemy-info">
+						<div id="enemy-name">몬스터</div> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+						<div>몬스터 체력: <span id="enemy-hp">0</span></div><!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+					</div>
+
+					<!-- DICE 버튼 -->
+					<button class="action-btn" id="attack-button">DICE!</button>
+
+					<!-- 인벤토리 버튼 -->
+					<button class="action-btn" id="inventory">인벤토리</button>
+				</section>
+
+				<!-- PC 스탯 -->
+				<div id="stats-pos" style="order: -1;"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
+					<div class="player-stats" id="player-stats">플레이어 스탯</div>
+				</div>
+			</main>
+		</section>
+	</div>
+
+	<!-- 자바 스크립트 소스 -->
+	<script src="js/gameState.js"></script>
+	<script src="js/floor.js"></script>
+	<script src="js/battle.js"></script>
+	<script src="js/shop.js"></script>
+	<script src="js/main.js"></script>
+	<script src="roll/roll.js"></script>
+	<script>
+		// 전투 테스트용 시작화면 스킵
+		//document.getElementById("start_UI").style.display = "none";
+		document.getElementById("battle_UI").style.display = "none";
+	</script>
+</body>
+
+</html>

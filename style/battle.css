@@ -1,6 +1,7 @@
 #battle_UI {
 	position: absolute;
 	width: 100%;
+	max-height: 100dvh;
 	aspect-ratio: 16/9;
 	overflow: hidden;
 	display: grid;
@@ -9,9 +10,9 @@
 }
 
 #battleContent {
-	transform: scale(0.98);
 	width: 100%;
-	height: 95%;
+	height: 100%;
+	padding: 10px;
 	grid-column-start: 2;
 	grid-row-start: 2;
 	display: flex;
@@ -19,17 +20,16 @@
 	justify-content: space-between;
 }
 
-* {
+#battle_UI * {
 	min-width: 0;
 	min-height: 0;
-	object-fit: contain;
+	box-sizing: border-box;
 }
 
 /* 게임 상태 띄우기 용 */
 #status-bar {
 	display: contents;
 	align-items: center;
-	font-size: 100%;
 	gap: 10px;
 }
 
@@ -45,7 +45,6 @@
 	align-items: center;
 	justify-content: center;
 	flex-grow: 1;
-	font-size: 20px;
 }
 
 /* 적일러스트 */
@@ -71,11 +70,11 @@
 	flex-direction: column;
 	justify-content: center;
 	overflow: hidden;
+	gap: 0.5rem;
 }
 
 #monsterUI>* {
-	margin: 0.5rem;
-	object-fit: cover;
+	padding: 0.5rem;
 }
 
 #battleMain {
@@ -87,5 +86,13 @@
 }
 
 #battleMain>* {
-	transform: scale(0.9);
+	padding: 10px;
+}
+
+#battleHeader {
+	display: flex;
+	flex-wrap: nowrap;
+	min-height: calc(fit-content + 1px);
+	align-items: center;
+	padding: 1%;
 }

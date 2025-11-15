@@ -10,11 +10,10 @@
 		body {
 			max-width: 100dvw;
 			max-height: 100dvh;
-			aspect-ratio: 16/9;
 			overflow: hidden;
 			margin: 0;
 			font-family: "Noto Sans KR", system-ui, sans-serif;
-			font-size: 25px;
+			font-size: calc(min(3.2cqw, 27px));
 		}
 
 		body {
@@ -22,10 +21,14 @@
 			color: #F0F8FF;
 		}
 
+		* {
+			font-size: inherit;
+		}
+
 		/*모든 버튼 스타일 */
 		.action-btn {
 			display: block;
-			border-radius: 2rem;
+			border-radius: 20px;
 			aspect-ratio: 3/1;
 			min-height: 2lh;
 
@@ -84,7 +87,6 @@
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
-
 		}
 
 		/*게임 시작 부분에 쓸것*/
@@ -174,7 +176,7 @@
 	<div id="battle_UI">
 		<section id="battleContent">
 			<!-- 상단 바: 게임 상태, 기타 버튼 (cf. lh==line height) -->
-			<header style="display: flex; flex-wrap: nowrap; min-height: calc(fit-content + 1px); align-items: center;">
+			<header id="battleHeader">
 				<div id="status-bar"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
 					<div>층: <strong id="current-floor">1</strong>/<span id="total-floors">10</span></div>
 					<div>체력: <strong id="player-hp">5</strong>/<span id="player-max-hp">10</span></div>
@@ -234,7 +236,7 @@
 					</div>
 
 					<!-- DICE 버튼 -->
-					<button class="action-btn" id="attack-button">DICE!</button>
+					<button class="action-btn" id="attack-button" style="padding: 10px">DICE!</button>
 
 					<!-- 인벤토리 버튼 -->
 					<button class="action-btn" id="inventory">인벤토리</button>

@@ -9,7 +9,7 @@
 
 /* 단독으로 존재하는 텍스트를 div로 감쌌습니다 */
 #diceUI div {
-	font-size: 130%;
+	font-size: 100%;
 }
 
 #diceUI .grid {
@@ -25,11 +25,11 @@
 #diceUI .cell {
 	border: 3px solid black;
 	padding: 0.5em;
+
+	display: grid;
 	text-align: center;
 	align-content: center;
 	vertical-align: middle;
-	max-width: 1fr;
-	max-height: 1fr;
 
 	font-size: 2.5rem;
 }

@@ -36,7 +36,6 @@
 			border: none;
 			color: #F0F8FF;
 
-			font-size: 1rem;
 			white-space: nowrap;
 			text-align: center;
 
@@ -97,13 +96,11 @@
 
 		#enemy-name {
 			/* 나중에 적 여러개 만들때 편하게 바꿀라고 만들어둠*/
-			font-size: 100%;
 			font-weight: bold;
 		}
 
 		#enemy-hp {
 			/* 나중에 적 체력 바꾸려고 id로 구성 */
-			font-size: 20px;
 		}
 
 		.shop_UI {
@@ -141,9 +138,8 @@
 			display: block;
 		}
 
-		.button {
-			text-align: center;
-			vertical-align: center;
+		button:not(.action-btn)::first-line {
+			font-size: 80%;
 		}
 	</style>
 

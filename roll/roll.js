@@ -136,6 +136,10 @@ initialize();
 
 // roll버튼 클릭시
 function onRollClick() {
+	if (rollCount >= maximumRolls) {
+		return;
+	}
+
 	for (i = 0; i < cells.length; i++) {
 		if (cells[i].value == undefined) {
 			cells[i].isLocked = false;
@@ -168,20 +172,35 @@ function onConfirmClick() {
 		cells[i].isDetermined = true;
 	}
 
+	score = calculateScore();
+
 	console.log(score);
 
+	setTimeout(() => {
+		battleSystem.rollDice(score);
+	}, 0)
+	
 	setTimeout(() => {
 		initialize();
 	}, 1500);
 }
 
-// 점수 계산
-function calculateScore() {
+// 점수 계산 후 반환 & UI 업데이트
+// 매개변수 false시 UI 업데이트 없음
+function calculateScore(updateUI = true) {
+	let ret = 0;
+
+	// 계산
 	cells.forEach(cell => {
-		score += cell.value;
+		ret += cell.value;
 	});
 
-	Array.prototype.forEach.call(scoreDisplays, (element) => {
-		element.textContent = score;
-	});
+	// UI 업데이트
+	if(updateUI){
+		Array.prototype.forEach.call(scoreDisplays, (element) => {
+			element.textContent = ret;
+		});
+	}
+
+	return ret;
 }

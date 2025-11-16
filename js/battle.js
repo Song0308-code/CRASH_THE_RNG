@@ -3,13 +3,14 @@ function rollDice(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// 전투 시스템 일단 메커니즘 구현은 ppt기준으로 돠어았어서 바꿔야함.
+// 전투 시스템
 const battleSystem = {
+	attackButton: document.getElementById('attack-button'),
+
     init() {
-        const attackButton = document.getElementById('attack-button');
-        if (attackButton) {
-            attackButton.addEventListener('click', function() {
-                battleSystem.rollDice();
+        if (this.attackButton) {
+            this.attackButton.addEventListener('click', (ev) => {
+                onRollClick(ev);
             });
         }
     },
@@ -22,13 +23,31 @@ const battleSystem = {
         document.getElementById('attack-button').disabled = false;
     },
 
-    rollDice() {
-        // 플레이어 주사위
-        const playerRoll = rollDice(gameState.player.Min_dice, gameState.player.Max_dice);
+    rollDice(playerRoll) {
+        // 플레이어 주사위. 값은 해당 메서드를 호출한 roll.js/onConfirmClick()에서 주어짐
+		alert(`당신의 주사위: ${playerRoll}`);
+		gameState.enemy.hp -= playerRoll;
+		alert(`적에게 ${playerRoll}데미지!`);
+
+		if (gameState.enemy.hp <= 0) {
+			this.onBattleWin();
+			return;
+		}
         
         // 적 주사위
         const enemyRoll = rollDice(gameState.enemy.Min_dice, gameState.enemy.Max_dice);
-        
+
+		alert(`적의 주사위: ${enemyRoll}`);
+		gameState.player.hp -= enemyRoll;
+		alert(`${enemyRoll}의 피해를 입었습니다!`);
+
+		if (gameState.player.hp <= 0) {
+			this.onBattleLose();
+		}
+
+        /*
+		구 코드
+
         // 결과 표시
         alert(`당신의 주사위: ${playerRoll}\n적의 주사위: ${enemyRoll}`);
         
@@ -49,29 +68,30 @@ const battleSystem = {
         
         // 전투 결과 체크
         this.checkBattleResult();
+		*/
     },
 
-    checkBattleResult() {
-        const attackButton = document.getElementById('attack-button');
-        
-        if (gameState.enemy.hp <= 0) {
-            // 전투 버튼 비활성화
-            attackButton.disabled = true;
-            
-            // 승리 처리
-            setTimeout(function() {
-                alert('전투 승리!');
-                floorSystem.nextFloor();
-            }, 100);
-        } else if (gameState.player.hp <= 0) {
-            // 전투 버튼 비활성화
-            attackButton.disabled = true;
-            setTimeout(function() {
-                alert('게임 오버...');
-                location.reload(); // 게임 재시작
-            }, 100);
-        }
-    }
+    onBattleWin() {
+		// 전투 버튼 비활성화
+		this.attackButton.disabled = true;
+		
+		// 승리 처리
+		setTimeout(function() {
+			alert('전투 승리!');
+			floorSystem.nextFloor();
+		}, 100);
+    },
+
+	onBattleLose() {
+		// 전투 버튼 비활성화
+		this.attackButton.disabled = true;
+
+		// 게임 재시작
+		setTimeout(function() {
+			alert('게임 오버...');
+			location.reload();
+		}, 100);
+	},
 };
 
 // 전투 시스템 초기화

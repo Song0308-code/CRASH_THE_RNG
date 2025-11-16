@@ -92,7 +92,6 @@
 #battleHeader {
 	display: flex;
 	flex-wrap: nowrap;
-	min-height: calc(fit-content + 1px);
 	align-items: center;
-	padding: 1%;
+	padding: 10px;
 }

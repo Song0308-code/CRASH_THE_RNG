@@ -41,16 +41,18 @@ const floorSystem = {
             padding: 40px;
             border-radius: 20px;
             text-align: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 10px;
         `;
 
         const title = document.createElement('h2');
         title.textContent = `${this.currentFloor}층에 도착했습니다!`; //방금 여기부분 건드렸음
-        title.style.marginBottom = '20px';
 
         const battleButton = document.createElement('button');
         battleButton.className = 'action-btn';
         battleButton.textContent = '전투 시작';
-        battleButton.style.marginRight = '10px';
         battleButton.onclick = () => {
             document.body.removeChild(choiceOverlay); //선택창을 제거하고 새로운 전투 시작.
             battleSystem.startNewBattle();

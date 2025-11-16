@@ -27,6 +27,7 @@ const battleSystem = {
         // 플레이어 주사위. 값은 해당 메서드를 호출한 roll.js/onConfirmClick()에서 주어짐
 		alert(`당신의 주사위: ${playerRoll}`);
 		gameState.enemy.hp -= playerRoll;
+		document.getElementById('enemy-hp').textContent = gameState.enemy.hp;
 		alert(`적에게 ${playerRoll}데미지!`);
 
 		if (gameState.enemy.hp <= 0) {
@@ -39,6 +40,7 @@ const battleSystem = {
 
 		alert(`적의 주사위: ${enemyRoll}`);
 		gameState.player.hp -= enemyRoll;
+		document.getElementById('player-hp').textContent = gameState.player.hp;
 		alert(`${enemyRoll}의 피해를 입었습니다!`);
 
 		if (gameState.player.hp <= 0) {

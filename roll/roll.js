@@ -237,6 +237,11 @@ function calculateScore(updateUI = true) {
     if (vA === vB && vB === vC && vC === vD) {
         multiplier += 1;
     }
+
+	//우상형
+	if(((vA=== vB+vC+vD) && (vB=== vC === vD)) || ((vB=== vA+vC+vD)&& (vA=== vC === vD)) || ((vC=== vA+vB+vD)&&(vA=== vB === vD)) || ((vD=== vA+vB+vC) && (vA=== vB === vC))) {
+		multiplier +=2;
+	}
     //최종 점수
     let finalScore = baseScore * multiplier;
 

@@ -141,46 +141,108 @@
 		button:not(.action-btn)::first-line {
 			font-size: 80%;
 		}
+
 		/* style 태그 또는 별도 CSS 파일에 추가 */
 		.help_UI {
-    		position: fixed;
-    		top: 0;
-    		left: 0;
-    		width: 100%;
-    		height: 100%;
-    		background: rgba(0, 0, 0, 0.7);
-    		display: flex;
-    		justify-content: center;
-    		align-items: center;
-    		z-index: 10; 
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.7);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 10;
 		}
 
 		.help-window {
-    		background: #4682B4; 
-    		color: #F0F8FF;
-    		border-radius: 25px;
-   			padding: 30px;
-    		width: 600px;
-    		max-height: 80vh;
-    		overflow-y: auto;
-    		text-align: left;
+			background: #4682B4;
+			color: #F0F8FF;
+			border-radius: 25px;
+			padding: 30px;
+			width: 600px;
+			max-height: 80vh;
+			overflow-y: auto;
+			text-align: left;
 		}
 
 		.help-title {
-    		text-align: center;
-    		font-size: 150%;
-    		margin-bottom: 20px;
+			text-align: center;
+			font-size: 150%;
+			margin-bottom: 20px;
 		}
 
 		.help-content ul {
-    		list-style-type: disc;
-    		padding-left: 20px;
-    		margin-bottom: 20px;
+			list-style-type: disc;
+			padding-left: 20px;
+			margin-bottom: 20px;
 		}
 
 		#exit-help {
-    		width: 200px;
-    		margin: 20px auto 0;
+			width: 200px;
+			margin: 20px auto 0;
+		}
+
+		/* 인벤토리 UI 스타일 */
+		.inventory_UI {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.6);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 15;
+			/* 도움말보다 위에 뜨게 */
+		}
+
+		.inventory-window {
+			background: #4682B4;
+			border: 2px solid #2F4F4F;
+			border-radius: 25px;
+			padding: 30px;
+			width: 600px;
+			min-height: 400px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			color: #F0F8FF;
+		}
+
+		.inventory-grid {
+			width: 100%;
+			flex-grow: 1;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			/* 한 줄에 4개 */
+			gap: 10px;
+			margin-bottom: 20px;
+			background: rgba(0, 0, 0, 0.2);
+			padding: 10px;
+			border-radius: 10px;
+		}
+
+		.item-slot {
+			background: #2F4F4F;
+			aspect-ratio: 1/1;
+			border-radius: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			border: 1px solid #5F7F7F;
+			font-size: 0.8rem;
+		}
+
+		.item-slot:hover {
+			background: #3D5A5A;
+		}
+
+		#exit-inventory {
+			width: 150px;
 		}
 	</style>
 
@@ -208,7 +270,7 @@
 			<button id="exit-shop" class="action-btn">상점 나가기</button>
 		</div>
 	</div>
-    
+
 	<!-- 전투 UI -->
 	<div id="battle_UI">
 		<section id="battleContent">
@@ -257,7 +319,7 @@
 						</button>
 						<div class="scoreDisplay" , style="text-align: right; flex-grow: 1">
 							0
-						</div>  <!-- 점수 합표기 -->
+						</div> <!-- 점수 합표기 -->
 					</section>
 				</section>
 
@@ -287,22 +349,35 @@
 		</section>
 	</div>
 	<div class="help_UI" id="help_UI" style="display:none">
-    <div class="help-window">
-        <h2 class="help-title">게임 규칙</h2>
-        <div class="help-content">
-            <p><strong><dice>주사위 시스템:</p>
-            <ul>
-                <li>교차형: A + D = B + C 라면 +1배</li>
-                <li>원천형: 모든 눈금이 3 이하일시에 +1배</li>
-                <li>정석형: 눈금 4개가 일치 할때 +1배</li>
-				<li>우상형: 3개의 눈금이 같고 그눈금의 합이 나머지 눈금과 같을 때 +2배</li>
-				<li>라인 보너스: 같은 숫자가 같은 라인에 있다면 그 주사위 눈금은 2배</li>
-            </ul>
-            <div><img src="tile.png"></div>
-        </div>
-        <button id="exit-help" class="action-btn">닫기</button>
-    </div>
-    </div>
+		<div class="help-window">
+			<h2 class="help-title">게임 규칙</h2>
+			<div class="help-content">
+				<p><strong>
+						<dice>주사위 시스템:</p>
+				<ul>
+					<li>교차형: A + D = B + C 라면 +1배</li>
+					<li>원천형: 모든 눈금이 3 이하일시에 +1배</li>
+					<li>정석형: 눈금 4개가 일치 할때 +1배</li>
+					<li>우상형: 3개의 눈금이 같고 그눈금의 합이 나머지 눈금과 같을 때 +2배</li>
+					<li>라인 보너스: 같은 숫자가 같은 라인에 있다면 그 주사위 눈금은 2배</li>
+				</ul>
+				<div><img src="tile.png"></div>
+			</div>
+			<button id="exit-help" class="action-btn">닫기</button>
+		</div>
+	</div>
+	<!-- 인벤토리 창 -->
+	<div class="inventory_UI" id="inventory_UI" style="display:none">
+		<div class="inventory-window">
+			<h1 class="inventory-title">인벤토리</h1>
+
+			<div id="inventory-list" class="inventory-grid">
+				<div class="empty-message">비어있음</div>
+			</div>
+
+			<button id="exit-inventory" class="action-btn">닫기</button>
+		</div>
+	</div>
 
 	<!-- 자바 스크립트 소스 -->
 	<script src="js/gameState.js"></script>
@@ -312,10 +387,20 @@
 	<script src="js/main.js"></script>
 	<script src="roll/roll.js"></script>
 	<script src="js/help.js"></script>
+	<script src="js/inventory.js"></script>
 	<script>
 		// 전투 테스트용 시작화면 스킵
 		//document.getElementById("start_UI").style.display = "none";
 		document.getElementById("battle_UI").style.display = "none";
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			inventorySystem.init(); // 인벤토리 시스템 시작
+
+			// 테스트용 아이템 지급 (나중에 삭제하세요)
+			inventorySystem.addItem("체력 물약", 100);
+
+		});
 	</script>
 </body>
 

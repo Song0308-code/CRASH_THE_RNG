@@ -21,10 +21,6 @@
 			color: #F0F8FF;
 		}
 
-		* {
-			font-size: inherit;
-		}
-
 		/*모든 버튼 스타일 */
 		.action-btn {
 			display: block;
@@ -140,6 +136,7 @@
 		}
 	</style>
 
+	<link href="style/main.css" rel="stylesheet" />
 	<link href="style/battle.css" rel="stylesheet" />
 	<link href="style/roll.css" rel="stylesheet" />
 	<link href="style/help.css" rel="stylesheet" />
@@ -242,9 +239,9 @@
 	</div>
 	
 	<!-- 도움말 UI -->
-	<div class="help_UI" id="help_UI" style="display:none">
+	<div class="overlay" id="help_UI" style="display:none">
 		<div class="help-window">
-			<h2 class="help-title">게임 규칙</h2>
+			<div class="help-title"><strong>게임 규칙</strong></div>
 			<div class="help-content">
 				<div class="help-text">
 					<p><strong>주사위 시스템:</strong></p>
@@ -265,9 +262,9 @@
     </div>
 	
 	<!-- 인벤토리 창 -->
-	<div class="inventory_UI" id="inventory_UI" style="display:none">
+	<div class="overlay" id="inventory_UI" style="display:none">
 		<div class="inventory-window">
-			<h1 class="inventory-title">인벤토리</h1>
+			<div id="inventory-title"><strong>인벤토리</strong></div>
 
 			<div id="inventory-list" class="inventory-grid">
 				<div class="empty-message">비어있음</div>
@@ -293,7 +290,7 @@
 			document.getElementById("battle_UI").style.display = "none";
 
 			// 테스트용 아이템 지급
-			//inventorySystem.addItem("체력 물약", 100);
+			inventorySystem.addItem("체력 물약", 100);
 		});
 	</script>
 </body>

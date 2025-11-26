@@ -1,7 +1,7 @@
 function showHelp() {
     const helpUI = document.getElementById('help_UI');
     if (helpUI) {
-        helpUI.style.display = 'flex'; // UI를 보이게 설정
+        helpUI.style.display = 'grid'; // UI를 보이게 설정
     }
 }
 

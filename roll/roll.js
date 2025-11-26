@@ -36,6 +36,23 @@ class Cell {
 			ev.preventDefault();
 			if (this.value == undefined || this.isDetermined == true) return;
 			this.isLocked = !this.isLocked;
+
+			if (rollCount >= maximumRolls) return;
+
+			let lockedCells = 0;
+
+			cells.forEach(c => {
+				if (c.isLocked)
+					lockedCells++;
+			})
+
+			if (lockedCells == cells.length){
+				attackButton.textContent = "확정!";
+				isAllLocked = true;
+			} else {
+				attackButton.textContent = "DICE!";
+				isAllLocked = false;
+			}
 		});
 
 		this.section.ondragover = (ev) => {
@@ -88,15 +105,16 @@ class Cell {
 
 // html 항목들 레퍼런스 생성 & 초기화
 const cellSections = document.getElementsByClassName("cell");
-const rollButton = document.getElementById("rollButton");
-const confirmButton = document.getElementById("confirmButton");
 const scoreDisplays = document.getElementsByClassName("scoreDisplay");
 const rollDisplays = document.getElementsByClassName("rollDisplay");
+const attackButton = document.getElementById("attack-button");
 
 
 // 주사위 굴리는 횟수
 let maximumRolls = 2;
 let rollCount = 0;
+
+let isAllLocked = false;
 
 
 // 점수
@@ -112,9 +130,6 @@ for (i = 0; i < 4; i++) {
 
 // 초기화
 function initialize() {
-	rollButton.disabled = false;
-	confirmButton.disabled = true;
-
 	cells.forEach(cell => {
 		cell.value = undefined;
 		cell.isLocked = false;
@@ -124,6 +139,7 @@ function initialize() {
 
 	rollCount = 0;
 	score = 0;
+	isAllLocked = false;
 
 	// 굴린 횟수 글자 업데이트
 	Array.prototype.forEach.call(rollDisplays, (element) => {
@@ -134,6 +150,9 @@ function initialize() {
 	Array.prototype.forEach.call(scoreDisplays, (element) => {
 		element.textContent = score;
 	});
+
+	//DICE! 버튼 원래대로
+	attackButton.textContent = "DICE!";
 }
 
 
@@ -143,7 +162,8 @@ initialize();
 
 // roll버튼 클릭시
 function onRollClick() {
-	if (rollCount >= maximumRolls) {
+	if (rollCount >= maximumRolls || isAllLocked) {
+		onConfirmClick();
 		return;
 	}
 
@@ -154,26 +174,20 @@ function onRollClick() {
 		cells[i].roll();
 	}
 
-	confirmButton.disabled = false;
-
 	// 굴린 횟수 업데이트
 	rollCount++;
+	if (rollCount >= maximumRolls) {
+		attackButton.textContent = "확정!";
+	}
+	
 	Array.prototype.forEach.call(rollDisplays, (element) => {
 		element.textContent = `Roll: ${rollCount}/${maximumRolls}`;
 	});
-
-	if (rollCount >= maximumRolls) {
-		rollButton.disabled = true;
-	}
-
 	calculateScore();
 }
 
 // confirm버튼 클릭시
 function onConfirmClick() {
-	rollButton.disabled = true;
-	confirmButton.disabled = true;
-
 	for (i = 0; i < cells.length; i++) {
 		cells[i].isLocked = true;
 		cells[i].isDetermined = true;

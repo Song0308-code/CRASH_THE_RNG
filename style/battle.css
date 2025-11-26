@@ -94,4 +94,5 @@
 	flex-wrap: nowrap;
 	align-items: center;
 	padding: 10px;
+	gap: 0.8em;
 }

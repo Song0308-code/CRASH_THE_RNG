@@ -93,6 +93,7 @@
 			color: var#F0F8FF;
 			min-height: 50px;
 		}
+		
 
 		#enemy-name {
 			/* 나중에 적 여러개 만들때 편하게 바꿀라고 만들어둠*/
@@ -211,7 +212,9 @@
 				<!--전투 관련 정보-->
 				<section id="monsterUI">
 					<!-- 적 이미지 -->
-					<div class="enemy-img" style="flex-grow: 1;"></div>
+					<div class="enemy-img" style="flex-grow: 1;">
+						<img id="enemy-image" src="" alt="몬스터 이미지" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+					</div>
 
 					<!-- 적 -->
 					<div class="enemy-info">

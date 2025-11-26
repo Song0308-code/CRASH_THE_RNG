@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const start_UI = document.getElementById('start_UI');
     const gameContainer = document.getElementById('battle_UI');
 
+    updateMonsterUI();
+
     if (startBtn) {
         startBtn.addEventListener('click', () => {
             if (start_UI) start_UI.style.display = 'none';
             if (gameContainer) gameContainer.style.display = 'block';
-
             // UI 초기화
             updateUI();
-
             // 전투 시작.
             battleSystem.startNewBattle();
         });

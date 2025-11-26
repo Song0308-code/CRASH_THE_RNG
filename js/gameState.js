@@ -1,4 +1,42 @@
 // 게임 상태 관리
+const monsterData = {
+    1: { // 1층: 레드 슬라임
+        name: "레드 슬라임",
+        image: "Red_Slime.png", // 이미지 경로
+        maxHp: 30,
+        Max_dice: 6,
+        Min_dice: 1
+    },
+    2: { // 2층: 마법 골렘
+        name: "마법 골렘",
+        image: "Magic_Golem.png",
+        maxHp: 40,
+        Max_dice: 6,
+        Min_dice: 1
+    },
+    3: { // 3층: 헤비골렘
+        name: "헤비 골렘",
+        image: "Heavy_Golem.png",
+        maxHp: 50,
+        Max_dice: 6,
+        Min_dice: 1
+    },
+    4: { // 4층: 믹스 플라스크   
+        name: "믹스 플라스크",
+        image: "Mix.png",
+        maxHp: 60,
+        Max_dice: 6,
+        Min_dice: 1
+    },
+    5: { // 5층: 이사벨라
+        name: "이사벨라",
+        image: "Isabella.png",
+        maxHp: 70,
+        Max_dice: 6,
+        Min_dice: 1
+    }
+};
+
 const gameState = {
     player: { // 플레이어 스탯
         hp: 10,
@@ -8,12 +46,12 @@ const gameState = {
         Min_dice: 1,
         items: [] //아이템 인벤토리는 일단 만들어놧음.
     },
-    enemy :{  // 적 스탯
-        hp: 100,
-        maxHp:100, //일단 층 잘 넘어가는지 확인할라고 1로 설정해둠
-        attack: 5,
-        Max_dice: 6,
-        Min_dice: 1
+    enemy :{  
+        name: monsterData[1].name,
+        image: monsterData[1].image,
+        maxHp: monsterData[1].maxHp,
+        Max_dice: monsterData[1].Max_dice,
+        Min_dice: monsterData[1].Min_dice
     }
 };
 
@@ -23,3 +61,14 @@ function updateUI() {
     document.getElementById('player-max-hp').textContent = gameState.player.maxHp;
     document.getElementById('player-gold').textContent = gameState.player.gold;
 }
+
+function updateMonsterUI() {
+    document.getElementById('enemy-name').textContent = gameState.enemy.name;
+    document.getElementById('enemy-hp').textContent = gameState.enemy.maxHp;
+    const enemyImageElement = document.getElementById('enemy-image');
+    if (enemyImageElement) {
+        enemyImageElement.src = gameState.enemy.image;
+        enemyImageElement.alt = gameState.enemy.name;
+    }
+}
+

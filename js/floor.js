@@ -1,22 +1,16 @@
 // 층 관리 시스템
 const floorSystem = {
     currentFloor: 1,
-    maxFloor: 10, //일단 10층으로 설정해둠
+    maxFloor: 5, 
 
     // 다음 층으로 이동
     nextFloor() {
         if (this.currentFloor < this.maxFloor) {
              
             this.currentFloor++;
-            gameState.enemy.hp = gameState.enemy.maxHp; // 이부분을 고쳐서 적 밸런스 맞춰야함 몬스터 ui도 if문으로 걸어서 초기화 하면 될듯?
-            document.getElementById('current-floor').textContent = this.currentFloor;
-            
-            // 일단은 층에서 이기면 10골드 획득
+            this.loadFloorMonster(this.currentFloor);
             gameState.player.gold += 10;
             updateUI();
-
-            // 다음 행동 선택 창 표시
-
             this.showNextActionChoice();
         } else {
             alert('축하합니다! 모든 층을 클리어하셨습니다!');
@@ -72,6 +66,20 @@ const floorSystem = {
         choiceContainer.appendChild(shopButton);
         choiceOverlay.appendChild(choiceContainer);
         document.body.appendChild(choiceOverlay);
+    }
+};
+
+
+floorSystem.loadFloorMonster = function(floor) {
+    const nextMonster = monsterData[floor];
+
+    if (nextMonster) {
+        gameState.enemy.name = nextMonster.name;
+        gameState.enemy.image = nextMonster.image;
+        gameState.enemy.maxHp = nextMonster.maxHp;
+        gameState.enemy.Max_dice = nextMonster.Max_dice;
+        gameState.enemy.Min_dice = nextMonster.Min_dice;
+        updateMonsterUI(); 
     }
 };
 

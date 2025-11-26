@@ -137,6 +137,67 @@
 		button:not(.action-btn)::first-line {
 			font-size: 80%;
 		}
+		
+		/* 인벤토리 UI 스타일 */
+		.inventory_UI {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.6);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 15;
+			/* 도움말보다 위에 뜨게 */
+		}
+
+		.inventory-window {
+			background: #4682B4;
+			border: 2px solid #2F4F4F;
+			border-radius: 25px;
+			padding: 30px;
+			width: 600px;
+			min-height: 400px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			color: #F0F8FF;
+		}
+
+		.inventory-grid {
+			width: 100%;
+			flex-grow: 1;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			/* 한 줄에 4개 */
+			gap: 10px;
+			margin-bottom: 20px;
+			background: rgba(0, 0, 0, 0.2);
+			padding: 10px;
+			border-radius: 10px;
+		}
+
+		.item-slot {
+			background: #2F4F4F;
+			aspect-ratio: 1/1;
+			border-radius: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			border: 1px solid #5F7F7F;
+			font-size: 0.8rem;
+		}
+
+		.item-slot:hover {
+			background: #3D5A5A;
+		}
+
+		#exit-inventory {
+			width: 150px;
+		}
 	</style>
 
 	<link href="style/battle.css" rel="stylesheet" />
@@ -164,7 +225,7 @@
 			<button id="exit-shop" class="action-btn">상점 나가기</button>
 		</div>
 	</div>
-    
+
 	<!-- 전투 UI -->
 	<div id="battle_UI">
 		<section id="battleContent">
@@ -213,7 +274,7 @@
 						</button> -->
 						<div class="scoreDisplay" , style="text-align: right; flex-grow: 1">
 							0
-						</div>  <!-- 점수 합표기 -->
+						</div> <!-- 점수 합표기 -->
 					</section>
 				</section>
 
@@ -269,6 +330,19 @@
 			<button id="exit-help" class="action-btn">닫기</button>
 		</div>
     </div>
+	
+	<!-- 인벤토리 창 -->
+	<div class="inventory_UI" id="inventory_UI" style="display:none">
+		<div class="inventory-window">
+			<h1 class="inventory-title">인벤토리</h1>
+
+			<div id="inventory-list" class="inventory-grid">
+				<div class="empty-message">비어있음</div>
+			</div>
+
+			<button id="exit-inventory" class="action-btn">닫기</button>
+		</div>
+	</div>
 
 	<!-- 자바 스크립트 소스 -->
 	<script src="js/gameState.js"></script>
@@ -278,10 +352,20 @@
 	<script src="js/main.js"></script>
 	<script src="roll/roll.js"></script>
 	<script src="js/help.js"></script>
+	<script src="js/inventory.js"></script>
 	<script>
 		// 전투 테스트용 시작화면 스킵
 		//document.getElementById("start_UI").style.display = "none";
 		document.getElementById("battle_UI").style.display = "none";
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			inventorySystem.init(); // 인벤토리 시스템 시작
+
+			// 테스트용 아이템 지급 (나중에 삭제하세요)
+			inventorySystem.addItem("체력 물약", 100);
+
+		});
 	</script>
 </body>
 

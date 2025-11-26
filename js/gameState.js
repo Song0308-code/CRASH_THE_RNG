@@ -6,7 +6,7 @@ const gameState = {
         gold: 150, //아이템 잘 사지나 컴파일용으로 돈많이 설정해둠
         Max_dice: 6,
         Min_dice: 1,
-        items: {} //아이템 인벤토리는 일단 만들어놧음.
+        items: [] //아이템 인벤토리는 일단 만들어놧음.
     },
     enemy :{  // 적 스탯
         hp: 100,

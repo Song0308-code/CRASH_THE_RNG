@@ -1,6 +1,4 @@
 const inventorySystem = {
-    items: [], // 아이템 담을 배열 
-
     // 1. 초기화 (초기 설정)
     init() {
         // HTML에 있는 버튼들을 가져옵니다.
@@ -31,8 +29,8 @@ const inventorySystem = {
 
         let existingItem = null;
 
-        for (let i = 0; i < inventorySystem.items.length; i++) {
-            let item = inventorySystem.items[i];
+        for (let i = 0; i < gameState.player.items.length; i++) {
+            let item = gameState.player.items[i];
             if (item.name == itemName) {
                 existingItem = item;
                 break; // 찾았으면 멈춤 (break문)
@@ -43,7 +41,7 @@ const inventorySystem = {
             existingItem.count += count;
         } else {
             // 배열에 추가 (push는 기본 기능)
-            inventorySystem.items.push({ name: itemName, count: count });
+            gameState.player.items.push({ name: itemName, count: count });
         }
 
         console.log(itemName + " " + count + "개 획득!");
@@ -66,13 +64,13 @@ const inventorySystem = {
             listContainer.innerHTML = ""; // 기존 목록 지우기
 
             // 아이템이 없으면 메시지 출력
-            if (inventorySystem.items.length == 0) {
+            if (gameState.player.items.length == 0) {
                 listContainer.innerHTML = '<div style="padding:20px; text-align:center;">가방이 비었습니다.</div>';
                 return;
             }
 
-            for (let i = 0; i < inventorySystem.items.length; i++) {
-                let item = inventorySystem.items[i];
+            for (let i = 0; i < gameState.player.items.length; i++) {
+                let item = gameState.player.items[i];
 
                 // HTML 태그 만들기
                 let slot = document.createElement("div");
@@ -108,7 +106,7 @@ const inventorySystem = {
 
     // 5. 아이템 사용하기
     useItem(index) {
-        let item = inventorySystem.items[index];
+        let item = gameState.player.items[index];
 
         if (item.name == "체력 물약") {
 
@@ -116,35 +114,32 @@ const inventorySystem = {
             let hpTag = document.getElementById("player-hp");
             let maxHpTag = document.getElementById("player-max-hp");
 
-            let currentHp = parseInt(hpTag.innerText);
-            let maxHp = parseInt(maxHpTag.innerText);
-
             // 체력이 가득 차 있으면 사용하지 않음 (선택 사항)
-            if (currentHp >= maxHp) {
+            if (gameState.player.hp >= gameState.player.maxHp) {
                 alert("체력이 이미 가득 찼습니다!");
                 return; // 함수 종료 (아이템 소모 안 됨)
             }
 
             // 체력 2 회복
-            currentHp = currentHp + 2;
+            gameState.player.hp = gameState.player.hp + 2;
 
             // 최대 체력(10)을 넘지 않게 막기
-            if (currentHp > maxHp) {
-                currentHp = maxHp;
+            if (gameState.player.hp > gameState.player.maxHp) {
+                gameState.player.hp = gameState.player.maxHp;
             }
 
             // 화면에 반영
-            hpTag.innerText = currentHp;
+            hpTag.innerText = gameState.player.hp;
 
             // 알림창 띄우기
-            alert("체력이 2 회복되었습니다. (현재 체력: " + currentHp + ")");
+            alert("체력이 2 회복되었습니다. (현재 체력: " + gameState.player.hp + ")");
 
             // 아이템 개수 줄이기 (사용했으므로)
             item.count--;
 
             // 0개가 되면 가방에서 삭제
             if (item.count <= 0) {
-                inventorySystem.items.splice(index, 1);
+                gameState.player.items.splice(index, 1);
             }
 
             // 인벤토리 화면 다시 그리기

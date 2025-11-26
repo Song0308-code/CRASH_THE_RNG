@@ -8,7 +8,7 @@ const floorSystem = {
         if (this.currentFloor < this.maxFloor) {
              
             this.currentFloor++;
-            this.loadFloorMonster(this.currentFloor);
+            this.loadFloorMonster(this.currentFloor); //이걸로 몬스터 업데이트하는걸로 바꿈
             gameState.player.gold += 10;
             updateUI();
             this.showNextActionChoice();
@@ -69,7 +69,7 @@ const floorSystem = {
     }
 };
 
-
+//gamestate 몬스터 값 바꾸는 부분
 floorSystem.loadFloorMonster = function(floor) {
     const nextMonster = monsterData[floor];
 

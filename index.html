@@ -274,7 +274,7 @@
 		</div>
 	</div>
 
-	<!-- 자바 스크립트 소스 -->
+	<!-- 스크립트 -->
 	<script src="js/gameState.js"></script>
 	<script src="js/floor.js"></script>
 	<script src="js/battle.js"></script>
@@ -284,17 +284,13 @@
 	<script src="js/help.js"></script>
 	<script src="js/inventory.js"></script>
 	<script>
-		// 전투 테스트용 시작화면 스킵
-		//document.getElementById("start_UI").style.display = "none";
-		document.getElementById("battle_UI").style.display = "none";
-	</script>
-	<script>
 		document.addEventListener('DOMContentLoaded', () => {
-			inventorySystem.init(); // 인벤토리 시스템 시작
+			// 전투 테스트용 시작화면 스킵
+			//document.getElementById("start_UI").style.display = "none";
+			document.getElementById("battle_UI").style.display = "none";
 
-			// 테스트용 아이템 지급 (나중에 삭제하세요)
-			inventorySystem.addItem("체력 물약", 100);
-
+			// 테스트용 아이템 지급
+			//inventorySystem.addItem("체력 물약", 100);
 		});
 	</script>
 </body>

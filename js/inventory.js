@@ -103,3 +103,8 @@ const inventorySystem = {
 		inventorySystem.showInventory();
     }
 };
+
+// 인벤토리 시스템 초기화
+document.addEventListener('DOMContentLoaded', function() {
+    inventorySystem.init();
+});

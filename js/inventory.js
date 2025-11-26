@@ -36,37 +36,35 @@ const inventorySystem = {
 
     showInventory() {
         const ui = document.getElementById("inventory_UI");
-        if (ui) {
-            ui.style.display = "flex";
+		ui.style.display = "grid";
 
-            // 아이템 목록 그리기
-            const listContainer = document.getElementById("inventory-list");
-            listContainer.innerHTML = ""; // 기존 목록 지우기
+		// 아이템 목록 그리기
+		const inventoryList = document.getElementById("inventory-list");
+		inventoryList.innerHTML = ""; // 기존 목록 지우기
 
-            if (gameState.player.items.length == 0) {
-                listContainer.innerHTML = `<div style="padding:20px; text-align:center;">가방이 비었습니다.</div>`;
-                return;
-            }
+		if (gameState.player.items.length == 0) {
+			inventoryList.innerHTML = `<div style="padding:20px; text-align:center;">가방이 비었습니다.</div>`;
+			return;
+		}
 
-            for (let i = 0; i < gameState.player.items.length; i++) {
-                let item = gameState.player.items[i];
+		for (let i = 0; i < gameState.player.items.length; i++) {
+			let item = gameState.player.items[i];
 
-                let slot = document.createElement("div");
-                slot.className = "item-slot";
-                slot.innerHTML = `
-					<div>
-                		<div>${item.name}</div>
-                		<small>x${item.count}</small>
-                	</div>
-				`;
+			let slot = document.createElement("div");
+			slot.className = "item-slot";
+			slot.innerHTML = `
+				<div>
+					<div>${item.name}</div>
+					<small>x${item.count}</small>
+				</div>
+			`;
 
-                slot.setAttribute("data-index", i);
-                slot.addEventListener("click", function () {
-                    inventorySystem.useItem(this.getAttribute("data-index"));
-                });
+			slot.setAttribute("data-index", i);
+			slot.addEventListener("click", function () {
+				inventorySystem.useItem(this.getAttribute("data-index"));
+			});
 
-                listContainer.appendChild(slot);
-            }
+			inventoryList.appendChild(slot);
         }
     },
 

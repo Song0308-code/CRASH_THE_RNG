@@ -13,7 +13,10 @@ const floorSystem = {
             updateUI();
             this.showNextActionChoice();
         } else {
-            alert('축하합니다! 모든 층을 클리어하셨습니다!');
+            showStory('ending', () => { //5층 도달하면 ending story보여주기 
+                alert('플레이 해주셔서 감사합니다!');
+                location.reload(); 
+            });
         }
     },
 

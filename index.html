@@ -99,6 +99,39 @@
 		button:not(.action-btn)::first-line {
 			font-size: 80%;
 		}
+		.story_UI {
+            position: fixed;
+            inset: 0; 
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100; 
+        }
+        .story-window {
+            background: #808080; 
+            width: 800px;
+            max-width: 90%;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .story-text {
+            color: #fff;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            white-space: pre-line; 
+            word-break: keep-all; 
+        }
+        #story-confirm-btn {
+            width: 150px;
+            align-self: center;
+            font-size: 1.1rem;
+        }
 	</style>
 
 	<link href="style/main.css" rel="stylesheet" />
@@ -241,6 +274,13 @@
 			<button id="exit-inventory" class="action-btn">닫기</button>
 		</div>
 	</div>
+    <!-- 스토리 창 -->
+	<div id="story_UI" class="story_UI" style="display: none;">
+        <div class="story-window">
+            <div id="story-text" class="story-text"></div>
+            <button id="story-confirm-btn" class="action-btn">확인</button>
+        </div>
+    </div>
 
 	<!-- 스크립트 -->
 	<script src="js/gameState.js"></script>

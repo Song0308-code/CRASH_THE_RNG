@@ -22,8 +22,8 @@
 	background: rgba(0, 0, 0, 0.2);
 	padding: 10px;
 	border-radius: 10px;
-	justify-content: flex-start;
-	align-items: flex-start;
+	justify-content: center;
+	align-items: center;
 }
 
 #inventory-title {
@@ -39,17 +39,16 @@
 
 .item-slot {
 	background: #2F4F4F;
-	width: 100px;
+	width: 150px;
 	height: 100px;
-	aspect-ratio: 1/1;
 	border-radius: 10px;
-	text-wrap-mode: nowrap;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
 	border: 1px solid #5F7F7F;
 	padding: 10px;
+	white-space: normal;
 }
 
 .item-slot:hover {
@@ -58,4 +57,16 @@
 
 #exit-inventory {
 	width: 150px;
+}
+
+.item-name {
+	font-size: 0.75rem;
+	text-align: center;
+	line-height: 1.2em;
+	display: -webkit-box;
+}
+
+.item-count {
+	font-size: 0.8rem;
+	margin-top: 5px;
 }

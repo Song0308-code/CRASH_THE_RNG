@@ -1,3 +1,19 @@
+function getPlayerDiceRange() {
+	const baseMin = gameState.player.Min_dice;
+	const baseMax = gameState.player.Max_dice;
+
+	const permMin = gameState.player.diceMinBonus;
+	const permMax = gameState.player.diceMaxBonus;
+
+	const tempMin = gameState.player.buffs.nextDiceMinPlus;
+	const tempMax = gameState.player.buffs.nextDiceMaxPlus;
+
+	return {
+		min: baseMin + permMin + tempMin,
+		max: baseMax + permMax + tempMax,
+	};
+}
+
 class Cell {
 	section = undefined;
 
@@ -46,7 +62,7 @@ class Cell {
 					lockedCells++;
 			})
 
-			if (lockedCells == cells.length){
+			if (lockedCells == cells.length) {
 				attackButton.textContent = "확정!";
 				isAllLocked = true;
 			} else {
@@ -167,11 +183,13 @@ function onRollClick() {
 		return;
 	}
 
+	const { min, max } = getPlayerDiceRange();
+
 	for (i = 0; i < cells.length; i++) {
 		if (cells[i].value == undefined) {
 			cells[i].isLocked = false;
 		}
-		cells[i].roll();
+		cells[i].roll(min, max);
 	}
 
 	// 굴린 횟수 업데이트
@@ -179,7 +197,7 @@ function onRollClick() {
 	if (rollCount >= maximumRolls) {
 		attackButton.textContent = "확정!";
 	}
-	
+
 	Array.prototype.forEach.call(rollDisplays, (element) => {
 		element.textContent = `Roll: ${rollCount}/${maximumRolls}`;
 	});
@@ -192,15 +210,38 @@ function onConfirmClick() {
 		cells[i].isLocked = true;
 		cells[i].isDetermined = true;
 	}
-	
+
 	score = calculateScore();
+
+	// ===== 아이템 버프 처리 =====
+	if (gameState.player && gameState.player.buffs) {
+		const buffs = gameState.player.buffs;
+
+		// 생명의 주사위: 점수/2 만큼 체력 회복 (최대 체력까지만)
+		if (buffs.nextDiceHpFromRoll) {
+			const heal = Math.floor(score / 2);
+			gameState.player.hp = Math.min(
+				gameState.player.hp + heal,
+				gameState.player.maxHp
+			);
+			document.getElementById('player-hp').textContent = gameState.player.hp;
+			alert(`생명의 주사위 효과! 체력이 ${heal} 회복되었습니다.`);
+			buffs.nextDiceHpFromRoll = false;
+		}
+
+		// 일회성 버프 초기화 (다음 턴에 영향 없도록)
+		buffs.nextDiceFlatBonus = 0;
+		buffs.nextDiceMinPlus = 0;
+		buffs.nextDiceMaxPlus = 0;
+	}
+	// =============================
 
 	console.log(score);
 
 	setTimeout(() => {
 		battleSystem.rollDice(score);
 	}, 0)
-	
+
 	setTimeout(() => {
 		initialize();
 	}, 1500);
@@ -211,60 +252,65 @@ function onConfirmClick() {
 // 점수 계산 후 반환 & UI 업데이트
 // 매개변수 false시 UI 업데이트 없음
 function calculateScore(updateUI = true) {
-    
-    // 각 칸 값 가져오기
-    const vA = cells[0].value;
-    const vB = cells[1].value;
-    const vC = cells[2].value;
-    const vD = cells[3].value;
 
-    // 만약 주사위가 아직 다 굴려지지 않았다면(undefined 값이 있다면) 0점 처리
-    if ([vA, vB, vC, vD].includes(undefined)) {
-        if (updateUI) {
-            Array.prototype.forEach.call(scoreDisplays, (element) => {
-                element.textContent = 0;
-            });
-        }
-        return 0;
-    }
-    // 라인 보너스
-    const valA = (vA === vB || vA === vC) ? vA * 2 : vA;
-    const valB = (vB === vA || vB === vD) ? vB * 2 : vB;
-    const valC = (vC === vA || vC === vD) ? vC * 2 : vC;
-    const valD = (vD === vB || vD === vC) ? vD * 2 : vD;
+	// 각 칸 값 가져오기
+	const vA = cells[0].value;
+	const vB = cells[1].value;
+	const vC = cells[2].value;
+	const vD = cells[3].value;
 
-    let baseScore = valA + valB + valC + valD;
+	// 만약 주사위가 아직 다 굴려지지 않았다면(undefined 값이 있다면) 0점 처리
+	if ([vA, vB, vC, vD].includes(undefined)) {
+		if (updateUI) {
+			Array.prototype.forEach.call(scoreDisplays, (element) => {
+				element.textContent = 0;
+			});
+		}
+		return 0;
+	}
+	// 라인 보너스
+	const valA = (vA === vB || vA === vC) ? vA * 2 : vA;
+	const valB = (vB === vA || vB === vD) ? vB * 2 : vB;
+	const valC = (vC === vA || vC === vD) ? vC * 2 : vC;
+	const valD = (vD === vB || vD === vC) ? vD * 2 : vD;
 
-    let multiplier = 1; // 기본 배율 1배
+	let baseScore = valA + valB + valC + valD;
 
-    //교차형
-    if ((vA + vD) === (vB + vC)) {
-        multiplier += 1;
-    }
+	let multiplier = 1; // 기본 배율 1배
 
-    // 원천형
-    if (vA <= 3 && vB <= 3 && vC <= 3 && vD <= 3) {
-        multiplier += 1;
-    }
+	//교차형
+	if ((vA + vD) === (vB + vC)) {
+		multiplier += 1;
+	}
 
-    // 정석형
-    if (vA === vB && vB === vC && vC === vD) {
-        multiplier += 1;
-    }
+	// 원천형
+	if (vA <= 3 && vB <= 3 && vC <= 3 && vD <= 3) {
+		multiplier += 1;
+	}
+
+	// 정석형
+	if (vA === vB && vB === vC && vC === vD) {
+		multiplier += 1;
+	}
 
 	//우상형
-	if(((vA=== vB+vC+vD) && (vB=== vC === vD)) || ((vB=== vA+vC+vD)&& (vA=== vC === vD)) || ((vC=== vA+vB+vD)&&(vA=== vB === vD)) || ((vD=== vA+vB+vC) && (vA=== vB === vC))) {
-		multiplier +=2;
+	if (((vA === vB + vC + vD) && (vB === vC === vD)) || ((vB === vA + vC + vD) && (vA === vC === vD)) || ((vC === vA + vB + vD) && (vA === vB === vD)) || ((vD === vA + vB + vC) && (vA === vB === vC))) {
+		multiplier += 2;
 	}
-    //최종 점수
-    let finalScore = baseScore * multiplier;
+	//최종 점수
+	let finalScore = baseScore * multiplier;
 
-    //UI 업데이트
-    if (updateUI) {
-        Array.prototype.forEach.call(scoreDisplays, (element) => {
-            element.textContent = finalScore;
-        });
-    }
+	// 더블 주사위: 최종 점수 + nextDiceFlatBonus
+	if (gameState.player && gameState.player.buffs) {
+		finalScore += gameState.player.buffs.nextDiceFlatBonus || 0;
+	}
 
-    return finalScore;
+	//UI 업데이트
+	if (updateUI) {
+		Array.prototype.forEach.call(scoreDisplays, (element) => {
+			element.textContent = finalScore;
+		});
+	}
+
+	return finalScore;
 }

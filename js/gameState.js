@@ -44,9 +44,23 @@ const gameState = {
         gold: 150, //아이템 잘 사지나 컴파일용으로 돈많이 설정해둠
         Max_dice: 6,
         Min_dice: 1,
-        items: [] //아이템 인벤토리는 일단 만들어놧음.
+        items: [], //아이템 인벤토리는 일단 만들어놧음.
+
+        // 아래는 아이템 관련 버프
+        // 레벨 업 주사위: 주사위 영구 보너스
+        diceMinBonus: 0,
+        diceMaxBonus: 0,
+
+        // 일회성 버프
+        buffs: {
+            nextDiceFlatBonus: 0,   // 더블 주사위: 다음 주사위 최종 눈금 +n
+            nextDiceMinPlus: 0,     // 위대한 주사위: 다음 주사위 최소 눈금 +n
+            nextDiceMaxPlus: 0,     // 위대한 주사위: 다음 주사위 최대 눈금 +n
+            nextDiceHpFromRoll: false, // 생명 주사위: true면 다음 확정 시 (점수/2)만큼 회복
+        },
     },
-    enemy :{  
+    
+    enemy: {
         name: monsterData[1].name,
         image: monsterData[1].image,
         maxHp: monsterData[1].maxHp,

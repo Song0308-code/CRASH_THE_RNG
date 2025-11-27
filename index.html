@@ -89,46 +89,11 @@
 			color: var#F0F8FF;
 			min-height: 50px;
 		}
-		
+
 
 		#enemy-name {
 			/* 나중에 적 여러개 만들때 편하게 바꿀라고 만들어둠*/
 			font-weight: bold;
-		}
-
-		.shop_UI {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: rgba(0, 0, 0, 0.5);
-			display: none;
-			justify-content: center;
-			align-items: center;
-			z-index: 2;
-		}
-
-		.shop-window {
-			background: #4682B4;
-			border-radius: 25px;
-			padding: 30px;
-			width: 900px;
-			max-height: 80vh;
-			overflow-y: auto;
-			position: relative;
-		}
-
-		.shop-title {
-			text-align: center;
-			font-size: 150%;
-			margin-bottom: 40px;
-		}
-
-		#exit-shop {
-			width: 260px;
-			margin: 0 auto;
-			display: block;
 		}
 
 		button:not(.action-btn)::first-line {
@@ -141,6 +106,7 @@
 	<link href="style/roll.css" rel="stylesheet" />
 	<link href="style/help.css" rel="stylesheet" />
 	<link href="style/inventory.css" rel="stylesheet" />
+	<link href="style/shop.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -160,6 +126,7 @@
 			<div>
 				<div id="shop-gold">보유골드: 0G</div> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
 			</div>
+			<div id="shop-item-list" class="shop-item-list"></div>
 			<button id="exit-shop" class="action-btn">상점 나가기</button>
 		</div>
 	</div>
@@ -210,7 +177,8 @@
 				<section id="monsterUI">
 					<!-- 적 이미지 -->
 					<div class="enemy-img" style="flex-grow: 1;">
-						<img id="enemy-image" src="" alt="몬스터 이미지" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+						<img id="enemy-image" src="" alt="몬스터 이미지"
+							style="width: 100%; height: 100%; object-fit: contain; display: block;">
 					</div>
 
 					<!-- 적 -->
@@ -237,7 +205,7 @@
 			</main>
 		</section>
 	</div>
-	
+
 	<!-- 도움말 UI -->
 	<div class="overlay" id="help_UI" style="display:none">
 		<div class="help-window">
@@ -259,8 +227,8 @@
 			</div>
 			<button id="exit-help" class="action-btn">닫기</button>
 		</div>
-    </div>
-	
+	</div>
+
 	<!-- 인벤토리 창 -->
 	<div class="overlay" id="inventory_UI" style="display:none">
 		<div class="inventory-window">
@@ -290,7 +258,11 @@
 			document.getElementById("battle_UI").style.display = "none";
 
 			// 테스트용 아이템 지급
-			inventorySystem.addItem("체력 물약", 100);
+			inventorySystem.addItem("체력 물약", 10);
+			inventorySystem.addItem("더블 주사위", 10);
+			//inventorySystem.addItem("위대한 주사위", 10);
+			//inventorySystem.addItem("생명의 주사위", 10);
+			//inventorySystem.addItem("레벨 업 주사위", 10);
 		});
 	</script>
 </body>

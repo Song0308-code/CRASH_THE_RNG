@@ -1,41 +1,41 @@
 const inventorySystem = {
-    init() {
-        const openBtn = document.getElementById("inventory");
-        const closeBtn = document.getElementById("exit-inventory");
+	init() {
+		const openBtn = document.getElementById("inventory");
+		const closeBtn = document.getElementById("exit-inventory");
 
-        if (openBtn) {
-            openBtn.addEventListener("click", function () {
-                inventorySystem.showInventory();
-            });
-        }
+		if (openBtn) {
+			openBtn.addEventListener("click", function () {
+				inventorySystem.showInventory();
+			});
+		}
 
-        if (closeBtn) {
-            closeBtn.addEventListener("click", function () {
-                inventorySystem.hideInventory();
-            });
-        }
-    },
+		if (closeBtn) {
+			closeBtn.addEventListener("click", function () {
+				inventorySystem.hideInventory();
+			});
+		}
+	},
 
-    addItem(itemName, count = 1) {
+	addItem(itemName, count = 1) {
 		let item = gameState.player.items.find((i) => i.name == itemName);
-        if (item != undefined) {
-            item.count += count;
-        } else {
-            gameState.player.items.push({ name: itemName, count: count });
-        }
+		if (item != undefined) {
+			item.count += count;
+		} else {
+			gameState.player.items.push({ name: itemName, count: count });
+		}
 
-        console.log(`${itemName} ${count}개 획득`);
+		console.log(`${itemName} ${count}개 획득`);
 
-        const ui = document.getElementById("inventory_UI");
+		const ui = document.getElementById("inventory_UI");
 
 		//아이템 UI 열려있으면 다시 그리기
-        if (ui.style.display != "none") {
-            inventorySystem.showInventory();
-        }
-    },
+		if (ui.style.display != "none") {
+			inventorySystem.showInventory();
+		}
+	},
 
-    showInventory() {
-        const ui = document.getElementById("inventory_UI");
+	showInventory() {
+		const ui = document.getElementById("inventory_UI");
 		ui.style.display = "grid";
 
 		// 아이템 목록 그리기
@@ -54,8 +54,8 @@ const inventorySystem = {
 			slot.className = "item-slot";
 			slot.innerHTML = `
 				<div>
-					<div>${item.name}</div>
-					<small>x${item.count}</small>
+					<div class="item-name">${item.name}</div>
+					<small class="item-count">x${item.count}</small>
 				</div>
 			`;
 
@@ -65,17 +65,27 @@ const inventorySystem = {
 			});
 
 			inventoryList.appendChild(slot);
-        }
-    },
+		}
+	},
 
-    hideInventory() {
-        document.getElementById("inventory_UI").style.display = "none";
-    },
+	hideInventory() {
+		document.getElementById("inventory_UI").style.display = "none";
+	},
 
-    useItem(index) {
-        let item = gameState.player.items[index];
+	useItem(index) {
+		let item = gameState.player.items[index];
 
-        switch(item.name) {
+		// 버프 초기화
+		if (!gameState.player.buffs) {
+			gameState.player.buffs = {
+				nextDiceFlatBonus: 0,
+				nextDiceMinPlus: 0,
+				nextDiceMaxPlus: 0,
+				nextDiceHpFromRoll: false,
+			};
+		}
+
+		switch (item.name) {
 			case "체력 물약":
 				const hpTag = document.getElementById("player-hp");
 				const maxHpTag = document.getElementById("player-max-hp");
@@ -89,9 +99,53 @@ const inventorySystem = {
 				hpTag.innerText = gameState.player.hp;
 				alert("체력이 2 회복되었습니다. (현재 체력: " + gameState.player.hp + ")");
 				break;
+
+			case "더블 주사위": {
+				// 다음 주사위 눈금 +2
+				gameState.player.buffs.nextDiceFlatBonus =
+					(gameState.player.buffs.nextDiceFlatBonus || 0) + 2;
+
+				alert("다음 주사위의 총 눈금이 +2 됩니다!");
+				break;
+			}
+
+			case "생명의 주사위": {
+				// 이미 사용했는지 체크
+				if (gameState.player.buffs.nextDiceHpFromRoll) {
+					alert("생명의 주사위 효과는 한 턴에 한 번만 사용할 수 있습니다!");
+					return;
+				}
+
+				// 다음 주사위 눈금 / 2 만큼 체력 회복
+				gameState.player.buffs.nextDiceHpFromRoll = true;
+
+				alert("다음 주사위를 굴릴 때, 나온 눈금의 절반만큼 체력이 회복됩니다!");
+				break;
+			}
+
+			case "위대한 주사위": {
+				// 다음 주사위 최소/최대 눈금 +2
+				gameState.player.buffs.nextDiceMinPlus =
+					(gameState.player.buffs.nextDiceMinPlus || 0) + 2;
+				gameState.player.buffs.nextDiceMaxPlus =
+					(gameState.player.buffs.nextDiceMaxPlus || 0) + 2;
+
+				alert("다음 주사위의 최소/최대 눈금이 +2 됩니다!");
+				break;
+			}
+
+			case "레벨 업 주사위": {
+				// 영구적으로 최소/최대 눈금 +1
+				gameState.player.diceMinBonus = (gameState.player.diceMinBonus || 0) + 1;
+				gameState.player.diceMaxBonus = (gameState.player.diceMaxBonus || 0) + 1;
+
+				alert("주사위 최소/최대 눈금이 영구적으로 +1 증가했습니다!");
+				break;
+			}
+
 			default:
 				break;
-        }
+		}
 
 		item.count--;
 		if (item.count <= 0) {
@@ -99,10 +153,10 @@ const inventorySystem = {
 		}
 
 		inventorySystem.showInventory();
-    }
+	}
 };
 
 // 인벤토리 시스템 초기화
-document.addEventListener('DOMContentLoaded', function() {
-    inventorySystem.init();
+document.addEventListener('DOMContentLoaded', function () {
+	inventorySystem.init();
 });

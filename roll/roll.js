@@ -157,6 +157,11 @@ function initialize() {
 	score = 0;
 	isAllLocked = false;
 
+	// 아이템 사용 기록 초기화
+	if (gameState.player) {
+        gameState.player.turnItemUsage = {};
+    }
+
 	// 굴린 횟수 글자 업데이트
 	Array.prototype.forEach.call(rollDisplays, (element) => {
 		element.textContent = `Roll: ${rollCount}/${maximumRolls}`;

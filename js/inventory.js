@@ -73,7 +73,19 @@ const inventorySystem = {
 	},
 
 	useItem(index) {
-		let item = gameState.player.items[index];
+		const player = gameState.player;
+		let item = player.items[index];
+
+		// 아이템 사용 기록 초기화
+		if (!player.turnItemUsage) {
+			player.turnItemUsage = {};
+		}
+
+		// 아이템을 이번 턴에 사용했는지 체크
+		if (player.turnItemUsage[item.name]) {
+			alert(item.name + "은(는) 한 턴에 한 번만 사용할 수 있습니다!");
+			return;
+		}
 
 		// 버프 초기화
 		if (!gameState.player.buffs) {
@@ -85,10 +97,11 @@ const inventorySystem = {
 			};
 		}
 
+		let used = false;
+
 		switch (item.name) {
 			case "체력 물약":
 				const hpTag = document.getElementById("player-hp");
-				const maxHpTag = document.getElementById("player-max-hp");
 
 				if (gameState.player.hp >= gameState.player.maxHp) {
 					alert("체력이 이미 가득 찼습니다!");
@@ -97,7 +110,9 @@ const inventorySystem = {
 
 				gameState.player.hp = Math.min(gameState.player.hp + 2, gameState.player.maxHp);
 				hpTag.innerText = gameState.player.hp;
+
 				alert("체력이 2 회복되었습니다. (현재 체력: " + gameState.player.hp + ")");
+				used = true;
 				break;
 
 			case "더블 주사위": {
@@ -106,20 +121,16 @@ const inventorySystem = {
 					(gameState.player.buffs.nextDiceFlatBonus || 0) + 2;
 
 				alert("다음 주사위의 총 눈금이 +2 됩니다!");
+				used = true;
 				break;
 			}
 
 			case "생명의 주사위": {
-				// 이미 사용했는지 체크
-				if (gameState.player.buffs.nextDiceHpFromRoll) {
-					alert("생명의 주사위 효과는 한 턴에 한 번만 사용할 수 있습니다!");
-					return;
-				}
-
 				// 다음 주사위 눈금 / 2 만큼 체력 회복
 				gameState.player.buffs.nextDiceHpFromRoll = true;
 
 				alert("다음 주사위를 굴릴 때, 나온 눈금의 절반만큼 체력이 회복됩니다!");
+				used = true;
 				break;
 			}
 
@@ -131,6 +142,7 @@ const inventorySystem = {
 					(gameState.player.buffs.nextDiceMaxPlus || 0) + 2;
 
 				alert("다음 주사위의 최소/최대 눈금이 +2 됩니다!");
+				used = true;
 				break;
 			}
 
@@ -140,6 +152,7 @@ const inventorySystem = {
 				gameState.player.diceMaxBonus = (gameState.player.diceMaxBonus || 0) + 1;
 
 				alert("주사위 최소/최대 눈금이 영구적으로 +1 증가했습니다!");
+				used = true;
 				break;
 			}
 
@@ -147,12 +160,19 @@ const inventorySystem = {
 				break;
 		}
 
-		item.count--;
-		if (item.count <= 0) {
-			gameState.player.items.splice(index, 1);
-		}
+		if (used) {
+			// 아이템 사용 기록
+			player.turnItemUsage[item.name] = true;
 
-		inventorySystem.showInventory();
+			// 개수 차감
+			item.count--;
+			if (item.count <= 0) {
+				player.items.splice(index, 1);
+			}
+
+			// 인벤토리 UI 다시 그리기
+			inventorySystem.showInventory();
+		}
 	}
 };
 

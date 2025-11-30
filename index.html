@@ -231,8 +231,11 @@
 				</section>
 
 				<!-- PC 스탯 -->
-				<div id="stats-pos" style="order: -1;"> <!-- 동적으로 바꿔야 하는 부분들은 다 id 넣어놨음 -->
-					<div class="player-stats" id="player-stats">플레이어 스탯</div>
+				<div id="stats-pos" style="order: -1;">
+					특수형
+					<div id="score-info" class="player-stats"></div>
+					사용 아이템
+					<div id="item-info" class="player-stats"></div>
 				</div>
 			</main>
 		</section>
@@ -281,6 +284,9 @@
         </div>
     </div>
 
+	<!-- 오버레이 -->
+	<div class="overlay" id="overlay" style="display: none; background: rgba(0, 0, 0, 0.3);"></div>
+
 	<!-- 스크립트 -->
 	<script src="js/gameState.js"></script>
 	<script src="js/floor.js"></script>
@@ -290,6 +296,7 @@
 	<script src="roll/roll.js"></script>
 	<script src="js/help.js"></script>
 	<script src="js/inventory.js"></script>
+	<script src="roll/effects.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			// 전투 테스트용 시작화면 스킵

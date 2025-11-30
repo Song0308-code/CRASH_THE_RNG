@@ -35,16 +35,26 @@
 
 #stats-pos {
 	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: stretch;
+	text-align: center;
 	padding-block: 10%;
+	font-size: calc(min(3cqw, 27px));
+	gap: 10px;
 }
 
 .player-stats {
 	border-radius: 1rem;
 	background: #2F4F4F;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
+	padding-block: 1lh;
+	font-size: 2cqw;
 	flex-grow: 1;
+	box-sizing: border-box;
+	white-space: pre;
 }
 
 /* 적일러스트 */
@@ -65,8 +75,12 @@
 }
 
 /* 적 스탯 */
-.enemy-info {
-	text-align: center
+#battle_UI .enemy-info {
+	align-items: flex-start;
+	text-align: center;
+	vertical-align: top;
+	display: grid;
+	min-height: fit-content;
 }
 
 #monsterUI {
@@ -78,7 +92,8 @@
 }
 
 #monsterUI>* {
-	padding: 0.5rem;
+	padding-inline: 1rem;
+	margin-inline: 0.5rem;
 }
 
 #battleMain {

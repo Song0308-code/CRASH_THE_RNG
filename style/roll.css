@@ -17,8 +17,8 @@
 	display: grid;
 	grid-template-rows: 1fr 1fr;
 	grid-template-columns: 1fr 1fr;
-	aspect-ratio: 1 / 1;
 	width: 1fr;
+	aspect-ratio: 1 / 1;
 	gap: 0.5em;
 }
 
@@ -35,6 +35,8 @@
 	vertical-align: middle;
 
 	font-size: 2.5rem;
+
+	position: relative;
 }
 
 #diceUI .cell:hover {
@@ -53,6 +55,12 @@
 	border-color: red;
 }
 
+#diceUI .cell[data-selectmode=true]:hover {
+	box-shadow: 0 0 1cqb white;
+	color: grey;
+	cursor: pointer;
+}
+
 /* 그리드 하단 UI */
 #diceUI #diceControls {
 	display: flex;
@@ -64,4 +72,24 @@
 
 #diceUI #diceControls>button {
 	padding: 3px;
+}
+
+#diceUI .cell .corner-text {
+	position: absolute;
+	bottom: 1cqh;
+	right: 1cqw;
+	color: grey;
+	font-size: 2cqw;
+}
+
+#itemPopUp {
+	position: fixed;
+	left: 0;
+	right: 0;
+	justify-self: center;
+	text-align: center;
+	padding: 10px;
+	font-size: calc(min(2cqw, 22px));
+	background-color: #00369b;
+	border-radius: 0 0 10px 10px;
 }

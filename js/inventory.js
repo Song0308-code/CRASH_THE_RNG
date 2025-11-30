@@ -74,7 +74,19 @@ const inventorySystem = {
 	},
 
 	useItem(index) {
-		let item = gameState.player.items[index];
+		const player = gameState.player;
+		let item = player.items[index];
+
+		// 아이템 사용 기록 초기화
+		if (!player.turnItemUsage) {
+			player.turnItemUsage = {};
+		}
+
+		// 아이템을 이번 턴에 사용했는지 체크
+		if (player.turnItemUsage[item.name]) {
+			alert(item.name + "은(는) 한 턴에 한 번만 사용할 수 있습니다!");
+			return;
+		}
 
 		// 버프 초기화
 		if (!gameState.player.buffs) {
@@ -86,10 +98,11 @@ const inventorySystem = {
 			};
 		}
 
+		let used = false;
+
 		switch (item.name) {
 			case "체력 물약":
 				const hpTag = document.getElementById("player-hp");
-				const maxHpTag = document.getElementById("player-max-hp");
 
 				if (gameState.player.hp >= gameState.player.maxHp) {
 					alert("체력이 이미 가득 찼습니다!");
@@ -98,6 +111,7 @@ const inventorySystem = {
 
 				gameState.player.hp = Math.min(gameState.player.hp + 2, gameState.player.maxHp);
 				hpTag.innerText = gameState.player.hp;
+
 				alert("체력이 2 회복되었습니다. (현재 체력: " + gameState.player.hp + ")");
 
 				this.itemUsed(index);
@@ -130,6 +144,7 @@ const inventorySystem = {
 
 				alert("모든 주사위의 최소/최대 눈금이 2 증가합니다!");
 				this.itemUsed(index);
+				used = true;
 				break;
 			}
 
@@ -140,6 +155,7 @@ const inventorySystem = {
 
 				alert("주사위 최소/최대 눈금이 영구적으로 +1 증가했습니다!");
 				this.itemUsed(index);
+				used = true;
 				break;
 			}
 
@@ -151,16 +167,16 @@ const inventorySystem = {
 	itemUsed(index) {
 		let item = gameState.player.items[index];
 
-		item.count--;
-		if (item.count <= 0) {
-			gameState.player.items.splice(index, 1);
-		}
+		if (used) {
+			// 아이템 사용 기록
+			player.turnItemUsage[item.name] = true;
 
-		if (item.name == "생명의 주사위") {
-			gameState.player.buffs.nextDiceHpFromRoll = true;
+			if (item.name == "생명의 주사위") {
+				gameState.player.buffs.nextDiceHpFromRoll = true;
+			}
 		}
-	}
-};
+	},
+}
 
 // 인벤토리 시스템 초기화
 document.addEventListener('DOMContentLoaded', () => {

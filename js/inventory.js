@@ -98,8 +98,6 @@ const inventorySystem = {
 			};
 		}
 
-		let used = false;
-
 		switch (item.name) {
 			case "체력 물약":
 				const hpTag = document.getElementById("player-hp");
@@ -144,7 +142,6 @@ const inventorySystem = {
 
 				alert("모든 주사위의 최소/최대 눈금이 2 증가합니다!");
 				this.itemUsed(index);
-				used = true;
 				break;
 			}
 
@@ -155,7 +152,6 @@ const inventorySystem = {
 
 				alert("주사위 최소/최대 눈금이 영구적으로 +1 증가했습니다!");
 				this.itemUsed(index);
-				used = true;
 				break;
 			}
 
@@ -165,15 +161,28 @@ const inventorySystem = {
 	},
 
 	itemUsed(index) {
+		const player = gameState.player;
 		let item = gameState.player.items[index];
 
-		if (used) {
-			// 아이템 사용 기록
-			player.turnItemUsage[item.name] = true;
+		item.count--;
+		if (item.count <= 0) {
+			gameState.player.items.splice(index, 1);
+		}
 
-			if (item.name == "생명의 주사위") {
+		// 아이템 사용 기록
+		if (item.name != "더블 주사위") {
+			player.turnItemUsage[item.name] = true;
+		}
+
+		if (item.name == "생명의 주사위") {
 				gameState.player.buffs.nextDiceHpFromRoll = true;
-			}
+		}
+
+		//아이템 UI 열려있으면 다시 그리기
+		const ui = document.getElementById("inventory_UI");
+		if (ui.style.display != "none") {
+			inventorySystem.showInventory();
+			this.showInventory();
 		}
 	},
 }
